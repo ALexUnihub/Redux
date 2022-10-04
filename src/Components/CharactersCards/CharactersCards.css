@@ -1,0 +1,54 @@
+.container.cards {
+  padding: 24px 48px;
+}
+
+.card__link {
+  text-decoration: none;
+  color: #000;
+}
+
+.cards__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  row-gap: 16px;
+  column-gap: 16px;
+}
+
+.card {
+  border: 1px solid rgb(175, 175, 175);
+  border-radius: 4px;
+}
+
+.card > img {
+  height: 200px;
+  width: 100%;
+
+  object-fit: cover;
+}
+
+.card__info {
+  padding: 16px;
+}
+
+.card__info > h4 {
+  margin: 0 0 8px 0;
+}
+
+.card__info > p {
+  margin: 0 0 8px 0;
+}
+
+.card__info > button {
+  padding: 8px;
+  color: #fff;
+  background-color: #000;
+  border: none;
+  border-radius: 4px;
+
+  font-size: 14px;
+}
+
+.card__info > button:hover {
+  cursor: pointer;
+  background-color: #333;
+}

@@ -1,18 +1,55 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { store } from './app/store';
+import { store } from './store/store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
+// router && routs
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Navigate,
+} from "react-router-dom";
+import CharacterCard from './Components/CharacterCard/CharacterCard';
+import Favourites from './Components/Favourites/Favourites';
+
+// test saga
+// import Counter from './Counter/Counter';
+// import { setCounterValue, setAsync } from './reducer/stateManager';
+
 
 const container = document.getElementById('root');
 const root = createRoot(container);
 
+const router = createBrowserRouter([
+  {
+    index: true,
+    element: <Navigate to="mainPage"/>,
+  },
+  {
+    path: "mainPage",
+    element: <App />,
+  },
+  {
+    path: "Favourites",
+    element: <Favourites />,
+  },
+  {
+    path: 'character/:characterId',
+    element: <CharacterCard />,
+  },
+]);
+
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <RouterProvider router={router} />
+      {/* <Counter
+        onIncrement={() => setCounterValue('INCREMENT')}
+        onDecrement={() => setCounterValue('DECREMENT')}
+        onIncrementAsync={() => setAsync('INCREMENT_ASYNC')}
+      /> */}
     </Provider>
   </React.StrictMode>
 );
