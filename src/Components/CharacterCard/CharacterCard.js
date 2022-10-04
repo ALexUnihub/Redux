@@ -6,9 +6,19 @@ import {
   getCurrCharacterId,
 } from '../../reducer/stateManager';
 
+// import { useParams } from 'react-router-dom';
+
 export default function CharacterCard(props) {
   const currCharId = useSelector(getCurrCharacterId);
   const dispatch = useDispatch();
+
+  // let { characterId } = useParams();
+  // console.log(characterId);
+
+  let link = window.location.href;
+  console.log(link);
+  let urlLink = new URL(link);
+  console.log(urlLink);
 
   getCharacter(dispatch);
   // console.log(currCharId);
