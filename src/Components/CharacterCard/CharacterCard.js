@@ -2,34 +2,37 @@ import './CharacterCard.css';
 import Header from '../Header/Header';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  setCurrCharacterId,
-  getCurrCharacterId,
+  setCurrCharacter,
+  getCurrCharacter,
+  // fetch
+  fetchCurrCharacter,
+  // err
+  getIsError,
 } from '../../reducer/stateManager';
-
-// import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 
 export default function CharacterCard(props) {
-  const currCharId = useSelector(getCurrCharacterId);
+  const currCharacter = useSelector(getCurrCharacter);
+  const isError = useSelector(getIsError);
   const dispatch = useDispatch();
 
-  // let { characterId } = useParams();
-  // console.log(characterId);
-
-  // let link = window.location.href;
-  // console.log(link);
-  // let urlLink = new URL(link);
-  // console.log(urlLink);
-
-  getCharacter(dispatch);
-  // console.log(currCharId);
+  useEffect(() => {
+    let arr = window.location.href.split('/');
+    const currId = parseInt(arr[arr.length - 1]);
+    
+    dispatch(fetchCurrCharacter(currId));
+  }, [dispatch]);
 
   return (
     <>
       <Header />
       <div className='container'>
         <div className='wrapper'>
-          <div className='character-card'>
-            {currCharId}
+          <div className='character-card-wrapper'>
+            {isError
+              ? <div>No character was found</div>
+              : <CurrCharacterCard character={currCharacter} />
+            }
           </div>
         </div>
       </div>
@@ -37,12 +40,20 @@ export default function CharacterCard(props) {
   );
 }
 
-async function getCharacter(dispatch) {
-  let arr = window.location.href.split('/');
-  const currId = parseInt(arr[arr.length - 1]);
-
-  let response = await fetch(`https://rickandmortyapi.com/api/character/${currId}`);
-  let responseJSON = await response.json();
-
-  dispatch(setCurrCharacterId(responseJSON.id));
+function CurrCharacterCard(props) {
+  return (
+    <div className='character-card'>
+      <div className='character-card-info'>
+        <h1>{props.character.name}</h1>
+        <p>{props.character.species} - {props.character.status}</p>
+        <p>Last known location: {props.character.location.name}</p>
+      </div>
+      <div className='character-card-img'>
+        <img 
+          alt={props.character.name}
+          src={props.character.image}
+        /> 
+      </div>
+    </div>
+  );
 }

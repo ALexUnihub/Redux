@@ -3,8 +3,23 @@
   padding: 24px 0;
 }
 
-.character-card {
+.character-card-wrapper {
   border: 1px solid rgb(175, 175, 175);
   border-radius: 4px;
   height: 300px;
+}
+
+.character-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.character-card-img {
+  width: 300px;
+  height: 300px;
+}
+
+.character-card-info {
+  padding: 16px;
 }

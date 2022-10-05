@@ -3,7 +3,9 @@ import {
   setCharacters,
   setPages,
   setIsError,
+  setCurrCharacter,
   getQueryParams,
+  getCurrCharacterId,
 } from '../reducer/stateManager';
 
 function* workGetCharacters() {
@@ -28,10 +30,24 @@ function* workGetCharacters() {
   }
 }
 
+function* workGetFavCharacter() {
+  const currId = yield select(getCurrCharacterId);
+  const response = yield call(() => fetch(`https://rickandmortyapi.com/api/character/${currId}`));
+  const responseJSON = yield response.json();
+
+  if (responseJSON.error) {
+    yield put(setIsError(true));
+  } else {
+    yield put(setIsError(false));
+    yield put(setCurrCharacter(responseJSON));
+  }
+}
+
 function* watchSetCharacters() {
   yield takeEvery('manager/setCharactersFetch', workGetCharacters);
   yield takeEvery('manager/setSpecies', workGetCharacters);
   yield takeEvery('manager/setName', workGetCharacters);
+  yield takeEvery('manager/fetchCurrCharacter', workGetFavCharacter);
 }
 
 export default function* charactersSaga() {

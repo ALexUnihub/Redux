@@ -13,6 +13,7 @@ const initialState = {
   favCharacters: [],
   inputValue: '',
   currCharacterId: 0,
+  favChar: {},
 
   queryParams: {
     page: 1,
@@ -64,9 +65,9 @@ export const stateManager = createSlice({
         // console.log(`setFavCharacters: removed:`, state.favCharacters.length);
       }
     },
-    setCurrCharacterId(state, action) {
-      state.currCharacterId = action.payload;
-    },
+    // setFavCharacterId(state, action) {
+    //   state.favCharacterId = action.payload;
+    // },
     setNextPage(state, action) {
       state.queryParams.page += action.payload;
     },
@@ -75,6 +76,14 @@ export const stateManager = createSlice({
     },
     setIsError(state, action) {
       state.isError = action.payload;
+    },
+    setCurrCharacter(state, action) {
+      state.favChar = action.payload;
+      state.isLoading = false;
+    },
+    fetchCurrCharacter(state, action) {
+      state.isLoading = true;
+      state.currCharacterId = action.payload;
     },
   },
 });
@@ -90,6 +99,7 @@ export const getCurrCharacterId = (state) => state.manager.currCharacterId;
 export const getQueryParams = (state) => state.manager.queryParams;
 export const getInputValue = (state) => state.manager.inputValue;
 export const getIsError = (state) => state.manager.isError;
+export const getCurrCharacter = (state) => state.manager.favChar;
 
 
 export const {
@@ -100,10 +110,12 @@ export const {
   setSpecies,
   setCharacters,
   setFavCharacters,
-  setCurrCharacterId,
+  // setFavCharacterId,
   setNextPage,
   setInputValue,
   setIsError,
+  setCurrCharacter,
+  fetchCurrCharacter,
 
   // fetch
   setCharactersFetch,
