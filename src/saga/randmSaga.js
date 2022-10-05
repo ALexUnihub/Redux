@@ -2,6 +2,7 @@ import { put, takeEvery, all, call, select } from 'redux-saga/effects';
 import {
   setCharacters,
   setPages,
+  setIsError,
   getQueryParams,
 } from '../reducer/stateManager';
 
@@ -18,8 +19,13 @@ function* workGetCharacters() {
   );
   const responseJSON = yield response.json();
 
-  yield put(setCharacters(responseJSON.results));
-  yield put(setPages(responseJSON.info.pages));
+  if (responseJSON.error) {
+    yield put(setIsError(true));
+  } else {
+    yield put(setIsError(false));
+    yield put(setCharacters(responseJSON.results));
+    yield put(setPages(responseJSON.info.pages));
+  }
 }
 
 function* watchSetCharacters() {

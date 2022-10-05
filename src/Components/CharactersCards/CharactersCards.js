@@ -4,10 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   setFavCharacters,
   getFavCharacters,
+  getIsError,
 } from '../../reducer/stateManager';
 import { Link } from 'react-router-dom';
 
 function CharactersCards(props) {
+  const isError = useSelector(getIsError);
   const charactersCards = props.items.map(item => {
     return (
       <Card item={item} key={item.id}/>
@@ -16,7 +18,11 @@ function CharactersCards(props) {
 
   return (
     <div className='container cards'>
-      <div className='cards__grid'>{charactersCards}</div>
+      <div className='cards__grid'>
+        {isError
+          ? <div>No cards</div>
+          : charactersCards}
+      </div>
       {props.isFooter
         ? <Footer />
         : <></>

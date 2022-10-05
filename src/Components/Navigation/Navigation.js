@@ -8,6 +8,7 @@ import {
   getInputValue,
 } from '../../reducer/stateManager';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 
 function Navigation(props) {
   const btnNames = ['All', 'Human', 'Animal', 'Alien'];
@@ -36,25 +37,36 @@ function Navigation(props) {
     dispatch(setSpecies(newSpecies.queryLine));
   };
 
-  const nameSetter = (event) => {
-    const newInputValue = event.target.value;
-
-    dispatch(setInputValue(newInputValue));
-  };
-
   const findCharacters = (event) => {
     if (event.code !== 'Enter' && event.code !== 'NumpadEnter') {
       return;
     }
 
     let name = event.target.value.trim();
+    if (name === '') {
+      dispatch(setInputValue(name));
+    }
+
+    const btnClear = event.target.closest('div').querySelector('.clear');
+    
+    if (name !== '') {
+      btnClear.hidden = false;
+    } else {
+      btnClear.hidden = true;
+    }
     
     dispatch(setName(name));
   };
 
-  const clearHandler = (event) => {
+  useEffect(() => {
+    const btnSearch = document.querySelector('.search');
     
-  };
+    if (inputValue.trim() !== '') {
+      btnSearch.disabled = false;
+    } else {
+      btnSearch.disabled = true;
+    }
+  })
 
   return (
     <div className='navigation'>
@@ -72,13 +84,27 @@ function Navigation(props) {
             type='text'
             placeholder='Search by name...'
             onKeyUp={findCharacters}
-            onChange={nameSetter}
+            onChange={(event) => dispatch(setInputValue(event.target.value))}
           ></input>
           <button
             className='nav__button search'
+            onClick={(event) => {
+              const name = inputValue.trim();
+
+              dispatch(setName(name));
+              event.target.closest('div').querySelector('.clear').hidden = false;
+            }}
           >Search</button>
           <button
             className='nav__button clear'
+            hidden
+            onClick={(event) => {
+              event.target.hidden = true;
+              event.target.closest('div').querySelector('.search').disabled = true;
+
+              dispatch(setInputValue(''));
+              dispatch(setName(''));  
+            }}
           >Clear</button>
         </div>
 

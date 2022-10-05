@@ -15,10 +15,10 @@ export default function CharacterCard(props) {
   // let { characterId } = useParams();
   // console.log(characterId);
 
-  let link = window.location.href;
-  console.log(link);
-  let urlLink = new URL(link);
-  console.log(urlLink);
+  // let link = window.location.href;
+  // console.log(link);
+  // let urlLink = new URL(link);
+  // console.log(urlLink);
 
   getCharacter(dispatch);
   // console.log(currCharId);

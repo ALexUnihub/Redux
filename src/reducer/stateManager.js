@@ -8,12 +8,7 @@ const initialState = {
     characters: true,
     favourites: false,
   },
-  // species: {
-  //   all: true,
-  //   human: false,
-  //   animal: false,
-  //   alien: false,
-  // },
+  isError: false,
   characters: null,
   favCharacters: [],
   inputValue: '',
@@ -52,10 +47,10 @@ export const stateManager = createSlice({
     },
     setCharactersFetch(state, action) {
       // console.log('fetch');
-      // state.isLoading = true;
+      state.isLoading = true;
     },
     setCharacters(state, action) {
-      // state.isLoading = false;
+      state.isLoading = false;
       state.characters = action.payload;
     },
     setFavCharacters(state, action) {
@@ -78,6 +73,9 @@ export const stateManager = createSlice({
     setInputValue(state, action) {
       state.inputValue = action.payload;
     },
+    setIsError(state, action) {
+      state.isError = action.payload;
+    },
   },
 });
 
@@ -91,6 +89,7 @@ export const getFavCharacters = (state) => state.manager.favCharacters;
 export const getCurrCharacterId = (state) => state.manager.currCharacterId;
 export const getQueryParams = (state) => state.manager.queryParams;
 export const getInputValue = (state) => state.manager.inputValue;
+export const getIsError = (state) => state.manager.isError;
 
 
 export const {
@@ -104,6 +103,7 @@ export const {
   setCurrCharacterId,
   setNextPage,
   setInputValue,
+  setIsError,
 
   // fetch
   setCharactersFetch,

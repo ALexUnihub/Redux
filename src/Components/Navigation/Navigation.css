@@ -71,6 +71,10 @@
   border-left: none;
 }
 
+.nav__button:disabled {
+  pointer-events: none;
+}
+
 .nav__button:hover {
   cursor: pointer;
   background-color: #999;

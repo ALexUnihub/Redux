@@ -25,10 +25,12 @@ const root = createRoot(container);
 const router = createBrowserRouter([
   {
     index: true,
-    element: <Navigate to="mainPage"/>,
+    // element: <Navigate to="mainPage"/>,
+    element: <Navigate to="characters"/>,
   },
   {
-    path: "mainPage",
+    // path: "mainPage",
+    path: "characters",
     element: <App />,
   },
   {

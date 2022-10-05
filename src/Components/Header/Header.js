@@ -24,7 +24,7 @@ function Header(props) {
 
         <div className ='header__links'>
           <Link
-            to={`/mainPage`}
+            to={`/characters`}
             className={charactersClassName}
             onClick={() => dispatch(setToShow({ 
               characters: true,

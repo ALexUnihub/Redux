@@ -3,10 +3,13 @@ import Header from "../Header/Header";
 import { useDispatch, useSelector } from 'react-redux';
 import {
   setToShow,
+  setInputValue,
+  setName,
   getFavCharacters,
   getToShow,
 } from '../../reducer/stateManager';
 import { CharactersCards } from '../CharactersCards/CharactersCards';
+import { useEffect } from 'react';
 
 export default function Favourites(props) {
   const favCharacters = useSelector(getFavCharacters);
@@ -19,6 +22,11 @@ export default function Favourites(props) {
       favourites: true,
     }));
   }
+
+  useEffect(() => {
+    dispatch(setInputValue(''));
+    dispatch(setName(''));
+  });
 
   return (
     <>
