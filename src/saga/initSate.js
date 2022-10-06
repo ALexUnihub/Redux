@@ -1,5 +1,6 @@
 import { put, takeEvery, call, select } from 'redux-saga/effects';
 import { setFavCharactersLength } from '../reducer/favouriteSlice';
+import { setCurrCharacter } from '../reducer/currCharacterSlice';
 
 export function* setFavouritesState() {
   let arr = localStorage.getItem('FAV_CHARS');
@@ -11,6 +12,25 @@ export function* setFavouritesState() {
   }
 }
 
+export function* fetchFavouritesState() {
+  const urlElement = new URL(window.location.href);
+  // console.log(urlElement.searchParams, urlElement);
+
+  if (Object.keys(urlElement.searchParams).length === 0) {
+    const pathnameArr = urlElement.pathname.split('/');
+    const currId = parseInt(pathnameArr[pathnameArr.length - 1]);
+
+    if (currId) {
+      const response = yield call(() => fetch(`https://rickandmortyapi.com/api/character/${currId}`));
+      const responseJSON = yield response.json();
+      const episode = yield call(() => fetch(responseJSON.episode[0]));
+      const episodeJSON = yield episode.json();
+      yield put(setCurrCharacter({ character: responseJSON, episode: episodeJSON.name }));
+    }
+  }
+}
+
 export default function* initSaga() {
-  yield call(setFavouritesState);
+  yield call(fetchFavouritesState);
+  yield call(setCurrCharacter);
 }

@@ -1,9 +1,11 @@
 import './CharactersCards.css';
 import Footer from '../Footer/Footer';
+import FavouriteButton from '../FavouriteButton/FavouriteButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCharacters, getIsError, } from '../../reducer/stateManager';
-import { setAlertMessage } from '../../reducer/alertSlice';
+// import { setAlertMessage } from '../../reducer/alertSlice';
 import { setFavCharactersLength, getFavCharactersLength } from '../../reducer/favouriteSlice';
+import { getCurrCharacter } from '../../reducer/currCharacterSlice';
 import { Link } from 'react-router-dom';
 
 function CharactersCards(props) {
@@ -49,7 +51,7 @@ function Card(props) {
         <div className='card__info'>
           <h4>{props.item.name}</h4>
           <p>{props.item.species} - {props.item.status}</p>
-          <AddToFavButton 
+          <FavouriteButton 
             inFavourites={inFavourites}
             dispatch={dispatch}
           />
@@ -61,89 +63,94 @@ function Card(props) {
 
 export { CharactersCards, Card };
 
-export function AddToFavButton(props) {
-  const characters = useSelector(getCharacters);
+// export function AddToFavButton(props) {
+//   const characters = useSelector(getCharacters);
+//   const characterState = useSelector(getCurrCharacter);
 
-  return (
-    <>
-      {props.inFavourites
-        ? <button className='add-fav-btn' onClick={(event) => {
-          event.preventDefault();
+//   return (
+//     <>
+//       {props.inFavourites
+//         ? <button className='add-fav-btn' onClick={(event) => {
+//           event.preventDefault();
 
-          let currId = 0;
+//           let currId = 0;
 
-          if (props.character?.id) {
-            currId = props.character.id
-          } else {
-            let arr = event.target.closest('a').href.split('/');
-            currId = parseInt(arr[arr.length - 1]);
-          }
+//           if (props.character?.id) {
+//             currId = props.character.id
+//           } else {
+//             // let arr = event.target.closest('a').href.split('/');
+//             // currId = parseInt(arr[arr.length - 1]);
+//             currId = characterState.char.id;
+//           }
 
-          let arr = JSON.parse(localStorage.getItem('FAV_CHARS'));
-          let idxElemToRemove = 0;
-          arr.filter((item, idx) => {
-            if (item.id === currId) {
-              idxElemToRemove = idx;
-            }
-          });
+//           let arr = JSON.parse(localStorage.getItem('FAV_CHARS'));
+//           let idxElemToRemove = 0;
+//           arr.filter((item, idx) => {
+//             if (item.id === currId) {
+//               idxElemToRemove = idx;
+//             }
+//           });
 
-          const character = arr.splice(idxElemToRemove, 1)[0];
+//           const character1 = arr.splice(idxElemToRemove, 1)[0];
 
-          localStorage.setItem('FAV_CHARS', JSON.stringify(arr));
+//           localStorage.setItem('FAV_CHARS', JSON.stringify(arr));
 
-          const msg = `${character.name} removed from favourites`;
-          dispatcher(props.dispatch, arr, msg, true);
-        }}>Remove from Favourites</button>
+//           const msg = `${characterState.char.name} removed from favourites`;
+//           dispatcher(props.dispatch, arr, msg, true);
+//         }}>Remove from Favourites</button>
 
-        : <button className='add-fav-btn' onClick={(event) => {
-          event.preventDefault();
+//         : <button className='add-fav-btn' onClick={(event) => {
+//           event.preventDefault();
           
-          let currId = 0;
-          let character ={};
+//           let currId = 0;
+//           let character ={};
 
-          if (props.character?.id) {
-            currId = props.character.id
-          } else {
-            let arr = event.target.closest('a').href.split('/');
-            currId = parseInt(arr[arr.length - 1]);
-          }
+//           if (props.character?.id) {
+//             currId = props.character.id
+//           } else {
+//             // let arr = event.target.closest('a').href.split('/');
+//             // currId = parseInt(arr[arr.length - 1]);
+//             currId = character.id;
+//           }
 
-          if (characters) {
-            character = characters.find(item => item.id === currId);
-          } else {
-            character = props.character;
-          }
+//           if (characters.length > 0) {
+//             character = characters.find(item => item.id === currId);
+//           } else {
+//             // character = props.character;
+//             character = characterState.char;
+//           }
 
-          let arr = localStorage.getItem('FAV_CHARS');
+//           let arr = localStorage.getItem('FAV_CHARS');
+//           console.log(characterState.char, characters);
 
-          if (arr === null) {
-            arr = [character];
-            localStorage.setItem('FAV_CHARS', JSON.stringify(arr));
-          } else {
-            arr = Array.from(JSON.parse(arr));
-            arr.push(character);
-            localStorage.setItem('FAV_CHARS', JSON.stringify(arr));
-          }
-          const msg = `${character.name} added to favourites`;
-          dispatcher(props.dispatch, arr, msg, true);
-          // let dispatchAfter100 = throttle(dispatcher, 100);
-          // dispatchAfter100(props.dispatch, arr, msg, true);
-        }}>Add to Favourites</button>
-      }
-    </>
-  );
-}
+//           if (arr === null) {
+//             arr = [character];
+//             localStorage.setItem('FAV_CHARS', JSON.stringify(arr));
+//           } else {
+//             arr = Array.from(JSON.parse(arr));
+//             arr.push(character);
+//             localStorage.setItem('FAV_CHARS', JSON.stringify(arr));
+//           }
+//           const msg = `${characterState.char.name} added to favourites`;
+//           dispatcher(props.dispatch, arr, msg, true);
+//           // let dispatchAfter100 = throttle(dispatcher, 100);
+//           // dispatchAfter100(props.dispatch, arr, msg, true);
+//         }}>Add to Favourites</button>
+//       }
+//     </>
+//   );
+// }
 
-function dispatcher(dispatch, arr, message, isAdd) {
-  dispatch(setFavCharactersLength(arr.length));
-  dispatch(setAlertMessage({
-    add: isAdd,
-    message: message,
-  }));
-  setTimeout(() => {
-    dispatch(setAlertMessage({
-      add: !isAdd,
-      message: message,
-    }));
-  }, 5000);
-}
+// function dispatcher(dispatch, arr, message, isAdd) {
+//   dispatch(setFavCharactersLength(arr.length));
+//   dispatch(setAlertMessage({
+//     add: isAdd,
+//     message: message,
+//   }));
+//   setTimeout(() => {
+//     dispatch(setAlertMessage({
+//       add: !isAdd,
+//       message: message,
+//     }));
+//   }, 5000);
+// }

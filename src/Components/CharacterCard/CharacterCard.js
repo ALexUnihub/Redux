@@ -1,18 +1,15 @@
 import './CharacterCard.css';
 import Header from '../Header/Header';
 import AlertElement from '../Alerts/Alerts';
+import FavouriteButton from '../FavouriteButton/FavouriteButton';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  // getCurrCharacter,
-  // getFavCharactersLength,
-  // fetch
-  // fetchCurrCharacter,
   // err
   getIsError,
 } from '../../reducer/stateManager';
 import { getFavCharactersLength } from '../../reducer/favouriteSlice';
 import { fetchCurrCharacter, getCurrCharacter } from '../../reducer/currCharacterSlice';
-import { AddToFavButton } from '../CharactersCards/CharactersCards';
+// import { AddToFavButton } from '../CharactersCards/CharactersCards';
 import { useEffect } from 'react';
 
 export default function CharacterCard(props) {
@@ -24,7 +21,6 @@ export default function CharacterCard(props) {
     let arr = window.location.href.split('/');
     const currId = parseInt(arr[arr.length - 1]);
     
-    // initializing(dispatch);
     dispatch(fetchCurrCharacter(currId));
   }, [dispatch]);
 
@@ -69,7 +65,7 @@ function CurrCharacterCard(props) {
         <p>{props.character.species} - {props.character.status}</p>
         <p>Last known location: {props.character.location?.name}</p>
         <p>First seen in: {props.episode}</p>
-        <AddToFavButton
+        <FavouriteButton
           inFavourites={inFavourites}
           dispatch={dispatch}
           character={props.character}

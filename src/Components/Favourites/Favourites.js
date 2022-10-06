@@ -1,5 +1,6 @@
 import './Favourites.css';
 import Header from "../Header/Header";
+import AlertElement from '../Alerts/Alerts';
 import { useDispatch, useSelector } from 'react-redux';
 import { getFavCharactersLength } from '../../reducer/favouriteSlice';
 import { CharactersCards } from '../CharactersCards/CharactersCards';
@@ -19,6 +20,9 @@ export default function Favourites(props) {
   return (
     <>
       <Header />
+      <div className='application__wrapper'>
+        <AlertElement />
+      </div>
       <div className="container fav">
         {favCharacters.length > 0
           ? <CharactersCards items={favCharacters}/>

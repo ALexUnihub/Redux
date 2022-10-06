@@ -41,6 +41,11 @@ export const stateManager = createSlice({
     },
     setCharacters(state, action) {
       state.isLoading = false;
+      const newArr = action.payload.map(item => {
+        item.isFavourite = false;
+        return item;
+      });
+      // console.log(newArr);
       state.characters = action.payload;
     },
 
