@@ -13,11 +13,7 @@ import {
 } from "react-router-dom";
 import CharacterCard from './Components/CharacterCard/CharacterCard';
 import Favourites from './Components/Favourites/Favourites';
-
-// test saga
-// import Counter from './Counter/Counter';
-// import { setCounterValue, setAsync } from './reducer/stateManager';
-
+import ErrorPage from './ErrorPage/ErrorPage';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
@@ -25,11 +21,10 @@ const root = createRoot(container);
 const router = createBrowserRouter([
   {
     index: true,
-    // element: <Navigate to="mainPage"/>,
     element: <Navigate to="characters"/>,
+    errorElement: <ErrorPage />,
   },
   {
-    // path: "mainPage",
     path: "characters",
     element: <App />,
   },
@@ -47,11 +42,6 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <RouterProvider router={router} />
-      {/* <Counter
-        onIncrement={() => setCounterValue('INCREMENT')}
-        onDecrement={() => setCounterValue('DECREMENT')}
-        onIncrementAsync={() => setAsync('INCREMENT_ASYNC')}
-      /> */}
     </Provider>
   </React.StrictMode>
 );

@@ -1,32 +1,20 @@
 import './Favourites.css';
 import Header from "../Header/Header";
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  setToShow,
-  setInputValue,
-  setName,
-  getFavCharacters,
-  getToShow,
-} from '../../reducer/stateManager';
+import { getFavCharactersLength } from '../../reducer/favouriteSlice';
 import { CharactersCards } from '../CharactersCards/CharactersCards';
 import { useEffect } from 'react';
+import { initializing } from '../../App';
 
 export default function Favourites(props) {
-  const favCharacters = useSelector(getFavCharacters);
-  const toShow = useSelector(getToShow);
-  const dispatch = useDispatch();
+  const favCharactersLength = useSelector(getFavCharactersLength);
+  let favCharacters = JSON.parse(localStorage.getItem('FAV_CHARS'));
 
-  if (!toShow.favourites) {
-    dispatch(setToShow({
-      characters: false,
-      favourites: true,
-    }));
+  if (!favCharacters) {
+    favCharacters = [];
   }
 
-  useEffect(() => {
-    dispatch(setInputValue(''));
-    dispatch(setName(''));
-  });
+  const dispatch = useDispatch();
 
   return (
     <>

@@ -1,5 +1,6 @@
 .navigation {
   background-color: #f2f2f2;
+  position: relative;
 }
 
 .container.navigation {
@@ -10,6 +11,7 @@
   height: 33px;
 
   padding: 16px 0;
+  z-index: 2;
 }
 
 .nav__btns {
@@ -69,6 +71,11 @@
 .nav__button {
   border: 1px solid rgb(175, 175, 175);
   border-left: none;
+  border-radius: 2px;
+}
+
+.nav__button.clear {
+  border: none;
 }
 
 .nav__button:disabled {

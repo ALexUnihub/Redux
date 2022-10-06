@@ -23,3 +23,11 @@
 .character-card-info {
   padding: 16px;
 }
+
+.character-card-info > p {
+  margin: 0 0 8px 0;
+}
+
+.character-card-info > h1 {
+  margin: 0 0 8px 0;
+}

@@ -1,20 +1,20 @@
 import './Header.css';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setToShow, getToShow, getFavCharacters } from '../../reducer/stateManager';
+import { getFavCharactersLength } from '../../reducer/favouriteSlice';
 
 function Header(props) {
-  const toShow = useSelector(getToShow);
-  const favCharacters = useSelector(getFavCharacters);
+  const favCharactersLength = useSelector(getFavCharactersLength);
+  const favCharacters = JSON.parse(localStorage.getItem('FAV_CHARS'));
   const dispatch = useDispatch();
 
   let charactersClassName = 'header__link';
   let favouritesClassName = 'header__link';
 
-  if (toShow.characters) {
+  if (window.location.href.includes('characters')) {
     charactersClassName += ' active';
   }
-  if (toShow.favourites) {
+  if (window.location.href.includes('Favourites')) {
     favouritesClassName += ' active';
   }
 
@@ -26,25 +26,17 @@ function Header(props) {
           <Link
             to={`/characters`}
             className={charactersClassName}
-            onClick={() => dispatch(setToShow({ 
-              characters: true,
-              favourites: false,
-             }))}
             >Characters
           </Link>
           <Link
             to={`/Favourites`}
             className={favouritesClassName}
-            onClick={() => dispatch(setToShow({ 
-              characters: false,
-              favourites: true,
-             }))}
             >Favourites
           </Link>
         </div>
 
         <div className='header__favorites__num'>
-          <span className='symbol' data-v-62216c96>♡ {favCharacters.length}</span>
+          <span className='symbol' data-v-62216c96>♡ {favCharactersLength}</span>
         </div>
 
       </div>

@@ -38,7 +38,7 @@
   margin: 0 0 8px 0;
 }
 
-.card__info > button {
+.add-fav-btn {
   padding: 8px;
   color: #fff;
   background-color: #000;
@@ -48,7 +48,7 @@
   font-size: 14px;
 }
 
-.card__info > button:hover {
+.add-fav-btn:hover {
   cursor: pointer;
   background-color: #333;
 }

@@ -1,0 +1,32 @@
+.alert__wrapper {
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  z-index: 15;
+}
+
+.alert__item {
+  background-color: green;
+  margin: 8px;
+  padding: 16px;
+  color: #fff;
+  border-radius: 4px;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.alert__item__btn {
+  margin-left: 16px;
+
+  font-size: 18px;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  background-color: transparent;
+}
+.alert__item__btn:hover {
+  cursor: pointer;
+  background-color: lightgreen;
+}

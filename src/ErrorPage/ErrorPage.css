@@ -1,0 +1,8 @@
+.error__wrapper > h1 {
+  margin: 0;
+}
+
+.error__wrapper {
+  padding: 48px;
+  text-align: center;
+}

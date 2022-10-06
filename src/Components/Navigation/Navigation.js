@@ -6,13 +6,16 @@ import {
   setInputValue,
   getQueryParams,
   getInputValue,
+  getFavCharactersLength,
+  // getAlertMessage,
 } from '../../reducer/stateManager';
+import { getAlertMessage } from '../../reducer/alertSlice';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 
 function Navigation(props) {
   const btnNames = ['All', 'Human', 'Animal', 'Alien'];
-
+  
   const queryState = useSelector(getQueryParams);
   const inputValue = useSelector(getInputValue);
   const dispatch = useDispatch();
@@ -60,16 +63,24 @@ function Navigation(props) {
 
   useEffect(() => {
     const btnSearch = document.querySelector('.search');
+    const btnClear = document.querySelector('.clear');
     
     if (inputValue.trim() !== '') {
       btnSearch.disabled = false;
+      btnClear.hidden = false;
     } else {
       btnSearch.disabled = true;
+      btnClear.hidden = true;
     }
   })
 
   return (
     <div className='navigation'>
+      {/* <div className='nav-alerts'>
+        <AlertElement />
+      </div> */}
+      
+
       <div className='container navigation'>
 
         <NavLinks
@@ -97,7 +108,7 @@ function Navigation(props) {
           >Search</button>
           <button
             className='nav__button clear'
-            hidden
+            // hidden
             onClick={(event) => {
               event.target.hidden = true;
               event.target.closest('div').querySelector('.search').disabled = true;
@@ -146,3 +157,4 @@ function NavLinks(props) {
     </div>
   );
 }
+

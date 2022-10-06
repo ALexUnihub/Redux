@@ -2,17 +2,16 @@ import React, { useEffect } from 'react';
 import './App.css';
 import MainPage from './Components/MainPage/MainPage';
 
-import stateManager, {
-  setCurrentPage,
-  setCharacters,
-  setPages,
+import {
   getCharacters,
   getCurrentPage,
-  getPages,
-
   // fetch
   setCharactersFetch,
+
+  // init
+  setInitState,
 } from './reducer/stateManager';
+import { setFavCharactersLength } from './reducer/favouriteSlice';
 
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -23,7 +22,7 @@ function App() {
 
   useEffect(() => {
     dispatch(setCharactersFetch(currentPage));
-  }, [dispatch, currentPage]);
+  }, [currentPage]);
 
   return (
     <div>
