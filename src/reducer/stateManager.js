@@ -2,20 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   pages: 1,
- 
   isError: false,
   characters: [],
-
   inputValue: '',
-
   queryParams: {
     page: 1,
     species: 'all',
     name: '',
   },
-  
-  // fetch
-  isLoading: false,
 };
 
 export const stateManager = createSlice({
@@ -35,21 +29,6 @@ export const stateManager = createSlice({
       state.pages = action.payload;
       state.isError = false;
     },
-
-    // setCharactersFetch(state, action) {
-    //   state.isLoading = true;
-      
-    // },
-    // setCharacters(state, action) {
-    //   state.isLoading = false;
-    //   const newArr = action.payload.map(item => {
-    //     item.isFavourite = false;
-    //     return item;
-    //   });
-    //   // console.log(newArr);
-    //   state.characters = action.payload;
-    // },
-
     setNextPage(state, action) {
       state.queryParams.page += action.payload;
     },
@@ -58,6 +37,8 @@ export const stateManager = createSlice({
     },
     setIsError(state, action) {
       state.isError = action.payload;
+      state.pages = 1;
+      state.queryParams.page = 1;
     },
  
   },
@@ -65,30 +46,19 @@ export const stateManager = createSlice({
 
 export const getCurrentPage = (state) => state.manager.queryParams.page;
 export const getPages = (state) => state.manager.pages;
-
 export const getSpecies = (state) => state.manager.species;
-// export const getCharacters = (state) => state.manager.characters;
-
-
 export const getQueryParams = (state) => state.manager.queryParams;
 export const getInputValue = (state) => state.manager.inputValue;
 export const getIsError = (state) => state.manager.isError;
-
-
 
 export const {
   setCurrentPage,
   setName,
   setPages,
   setSpecies,
-  // setCharacters,
-
   setNextPage,
   setInputValue,
   setIsError,
-
-  // fetch
-  // setCharactersFetch,
 } = stateManager.actions;
 
 export default stateManager.reducer;

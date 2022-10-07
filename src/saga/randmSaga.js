@@ -1,11 +1,8 @@
 import { put, takeEvery, call, select } from 'redux-saga/effects';
 import {
-  // setCharacters,
   setPages,
   setIsError,
-  // setCurrCharacter,
   getQueryParams,
-  // getCurrCharacterId,
 } from '../reducer/stateManager';
 import { setCharacters } from '../reducer/favouriteSlice';
 
@@ -25,7 +22,6 @@ function* workGetCharacters() {
   if (responseJSON.error) {
     yield put(setIsError(true));
   } else {
-    // yield put(setIsError(false));
     yield put(setCharacters(responseJSON.results));
     yield put(setPages(responseJSON.info.pages));
   }

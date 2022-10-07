@@ -1,11 +1,9 @@
 import './Favourites.css';
 import Header from "../Header/Header";
 import AlertElement from '../Alerts/Alerts';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getFavCharacterId } from '../../reducer/favouriteSlice';
 import { CharactersCards } from '../CharactersCards/CharactersCards';
-import { useEffect } from 'react';
-import { initializing } from '../../App';
 
 export default function Favourites(props) {
   let favCharactersLength = useSelector(getFavCharacterId);

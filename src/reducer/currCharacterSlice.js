@@ -19,6 +19,9 @@ export const currCharacterSlise = createSlice({
     fetchCurrCharacter(state, action) {
       state.currCharacterId = action.payload;
     },
+    setCurrCharIsFavourite(state, action) {
+      state.currChar.char.isFavourite = action.payload;
+    },
   },
 });
 
@@ -28,6 +31,7 @@ export const getCurrCharacter = (state) => state.currCharacter.currChar;
 export const {
   setCurrCharacter,
   fetchCurrCharacter,
+  setCurrCharIsFavourite,
 } = currCharacterSlise.actions;
 
 export default currCharacterSlise.reducer;

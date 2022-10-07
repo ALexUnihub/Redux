@@ -6,17 +6,14 @@ export function* setFavouritesState() {
   let arr = localStorage.getItem('FAV_CHARS');
   if (arr !== null) {
     arr = JSON.parse(arr);
-    // yield put(setFavCharactersLength(arr.length));
     yield put(setFavsId(arr));
   } else {
-    // yield put(setFavCharactersLength(0));
     yield put(setFavsId([]));
   }
 }
 
 export function* fetchFavouritesState() {
   const urlElement = new URL(window.location.href);
-  // console.log(urlElement.searchParams, urlElement);
 
   if (Object.keys(urlElement.searchParams).length === 0) {
     const pathnameArr = urlElement.pathname.split('/');

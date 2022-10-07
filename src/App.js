@@ -1,18 +1,8 @@
 import React, { useEffect } from 'react';
-import './App.css';
 import MainPage from './Components/MainPage/MainPage';
 
-import {
-  // getCharacters,
-  getCurrentPage,
-  // fetch
-  // setCharactersFetch,
-
-  // init
-  // setInitState,
-} from './reducer/stateManager';
+import { getCurrentPage } from './reducer/stateManager';
 import { setCharactersFetch, getCharacters } from './reducer/favouriteSlice';
-
 import { useDispatch, useSelector } from 'react-redux';
 
 function App() {

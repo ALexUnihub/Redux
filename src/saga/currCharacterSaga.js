@@ -1,6 +1,6 @@
 import { put, takeEvery, call, select, all } from 'redux-saga/effects';
-import { setCurrCharacter, getCurrCharacterId } from '../reducer/currCharacterSlice';
-import { getFavCharacterId } from '../reducer/favouriteSlice';
+import { setCurrCharacter, setCurrCharIsFavourite, getCurrCharacterId } from '../reducer/currCharacterSlice';
+import { getNewFavChar, getFavCharacterId } from '../reducer/favouriteSlice';
 import { setIsError } from '../reducer/stateManager';
 
 function* workGetCurrCharacter() {
@@ -14,7 +14,7 @@ function* workGetCurrCharacter() {
     yield put(setIsError(false));
     const episode = yield call(() => fetch(responseJSON.episode[0]));
     const episodeJSON = yield episode.json();
-    // console.log(episodeJSON.name, responseJSON);
+
     const favsId = yield select(getFavCharacterId);
     let isFavourite = false;
 
@@ -29,8 +29,14 @@ function* workGetCurrCharacter() {
 }
 
 function* setIsFavourite() {
-  const favsId = yield select(getFavCharacterId);
-  // saga
+  const char = yield select(getNewFavChar);
+  let isFavourite = false;
+
+  if (char.toAdd) {
+    isFavourite = true;
+  }
+
+  yield put(setCurrCharIsFavourite(isFavourite));
 }
 
 function* watchSetCurrCharacter() {
@@ -38,12 +44,10 @@ function* watchSetCurrCharacter() {
 }
 
 function* watchSetIsFavourite() {
-  yield takeEvery('favourites/setFavsId', setIsFavourite);
+  yield takeEvery('favourites/addCharOnLocalStorage', setIsFavourite);
 }
 
 export default function* currCharacterSaga() {
-  // yield call(watchSetCurrCharacter);
-  // yield call
   yield all([
     watchSetCurrCharacter(),
     watchSetIsFavourite(),

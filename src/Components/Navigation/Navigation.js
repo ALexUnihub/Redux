@@ -6,8 +6,6 @@ import {
   setInputValue,
   getQueryParams,
   getInputValue,
-  getFavCharactersLength,
-  // getAlertMessage,
 } from '../../reducer/stateManager';
 import { getAlertMessage } from '../../reducer/alertSlice';
 import { Link } from 'react-router-dom';
@@ -76,10 +74,6 @@ function Navigation(props) {
 
   return (
     <div className='navigation'>
-      {/* <div className='nav-alerts'>
-        <AlertElement />
-      </div> */}
-      
 
       <div className='container navigation'>
 
@@ -108,7 +102,6 @@ function Navigation(props) {
           >Search</button>
           <button
             className='nav__button clear'
-            // hidden
             onClick={(event) => {
               event.target.hidden = true;
               event.target.closest('div').querySelector('.search').disabled = true;

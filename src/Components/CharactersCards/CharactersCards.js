@@ -2,10 +2,8 @@ import './CharactersCards.css';
 import Footer from '../Footer/Footer';
 import FavouriteButton from '../FavouriteButton/FavouriteButton';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCharacters, getIsError, } from '../../reducer/stateManager';
-// import { setAlertMessage } from '../../reducer/alertSlice';
+import { getIsError, } from '../../reducer/stateManager';
 import { getFavCharacterId } from '../../reducer/favouriteSlice';
-import { getCurrCharacter } from '../../reducer/currCharacterSlice';
 import { Link } from 'react-router-dom';
 
 function CharactersCards(props) {

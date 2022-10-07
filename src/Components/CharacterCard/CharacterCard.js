@@ -3,13 +3,8 @@ import Header from '../Header/Header';
 import AlertElement from '../Alerts/Alerts';
 import FavouriteButton from '../FavouriteButton/FavouriteButton';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  // err
-  getIsError,
-} from '../../reducer/stateManager';
-import { getFavCharacterId } from '../../reducer/favouriteSlice';
+import { getIsError } from '../../reducer/stateManager';
 import { fetchCurrCharacter, getCurrCharacter } from '../../reducer/currCharacterSlice';
-// import { AddToFavButton } from '../CharactersCards/CharactersCards';
 import { useEffect } from 'react';
 
 export default function CharacterCard(props) {
@@ -24,9 +19,6 @@ export default function CharacterCard(props) {
     
     dispatch(fetchCurrCharacter(currId));
   }, [dispatch]);
-
-  const favsId = useSelector(getFavCharacterId);
-  console.log('curr', favsId);
   
   return (
     <>
@@ -52,16 +44,9 @@ export default function CharacterCard(props) {
 }
 
 function CurrCharacterCard(props) {
-  // const favsId = useSelector(getFavCharacterId);
-  // console.log('curr', favsId);
   const dispatch = useDispatch();
 
-  // const favCharacters = JSON.parse(localStorage.getItem('FAV_CHARS'));
   let inFavourites = props.character.isFavourite;
-
-  // if (favCharacters !== null && favCharacters.find(item => item.id === props.character?.id)) {
-  //   inFavourites = true;
-  // }
 
   return (
     <div className='character-card'>

@@ -2,7 +2,6 @@ import './Footer.css';
 import { Link } from 'react-router-dom';
 import {
   setNextPage,
-  getCurrentPage,
   getPages,
   getQueryParams,
 } from '../../reducer/stateManager';
@@ -52,10 +51,12 @@ function Footer(props) {
 
       <div className='footer__nav'>
         <Link to={`?page=${currPage - 1}`}
+          id='page'
           className={leftPageClass}
           onClick={pageSetter}
         >{leftBtnName}</Link>
         <Link to={`?page=${currPage + 1}`}
+          id='page'
           className={rightPageClass}
           onClick={pageSetter}
         >{rightBtnName}</Link>
