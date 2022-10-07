@@ -29,7 +29,14 @@ export function* fetchFavouritesState() {
   }
 }
 
+export function* setStateFromURL() {
+  let currURL = new URL(window.location.href);
+  let arr = currURL.searchParams.getAll();
+  console.log(currURL.search, arr);
+}
+
 export default function* initSaga() {
   yield call(fetchFavouritesState);
   yield call(setFavouritesState);
+  yield call(setStateFromURL);
 }

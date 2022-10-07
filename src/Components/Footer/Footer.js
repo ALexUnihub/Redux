@@ -1,5 +1,5 @@
 import './Footer.css';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import {
   setNextPage,
   getPages,
@@ -50,12 +50,12 @@ function Footer(props) {
       <p>Page {currPage} of {pages}</p>
 
       <div className='footer__nav'>
-        <Link to={`?page=${currPage - 1}`}
+        <Link to={`/characters/`}
           id='page'
           className={leftPageClass}
           onClick={pageSetter}
         >{leftBtnName}</Link>
-        <Link to={`?page=${currPage + 1}`}
+        <Link to={`/characters/`}
           id='page'
           className={rightPageClass}
           onClick={pageSetter}
