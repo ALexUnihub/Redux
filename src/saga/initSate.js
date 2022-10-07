@@ -1,14 +1,16 @@
 import { put, takeEvery, call, select } from 'redux-saga/effects';
-import { setFavCharactersLength } from '../reducer/favouriteSlice';
+import { setFavCharactersLength, setFavsId } from '../reducer/favouriteSlice';
 import { setCurrCharacter } from '../reducer/currCharacterSlice';
 
 export function* setFavouritesState() {
   let arr = localStorage.getItem('FAV_CHARS');
   if (arr !== null) {
     arr = JSON.parse(arr);
-    yield put(setFavCharactersLength(arr.length));
+    // yield put(setFavCharactersLength(arr.length));
+    yield put(setFavsId(arr));
   } else {
-    yield put(setFavCharactersLength(0));
+    // yield put(setFavCharactersLength(0));
+    yield put(setFavsId([]));
   }
 }
 
@@ -32,5 +34,5 @@ export function* fetchFavouritesState() {
 
 export default function* initSaga() {
   yield call(fetchFavouritesState);
-  yield call(setCurrCharacter);
+  yield call(setFavouritesState);
 }

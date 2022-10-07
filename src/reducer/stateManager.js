@@ -33,21 +33,22 @@ export const stateManager = createSlice({
     },
     setPages(state, action) {
       state.pages = action.payload;
+      state.isError = false;
     },
 
-    setCharactersFetch(state, action) {
-      state.isLoading = true;
+    // setCharactersFetch(state, action) {
+    //   state.isLoading = true;
       
-    },
-    setCharacters(state, action) {
-      state.isLoading = false;
-      const newArr = action.payload.map(item => {
-        item.isFavourite = false;
-        return item;
-      });
-      // console.log(newArr);
-      state.characters = action.payload;
-    },
+    // },
+    // setCharacters(state, action) {
+    //   state.isLoading = false;
+    //   const newArr = action.payload.map(item => {
+    //     item.isFavourite = false;
+    //     return item;
+    //   });
+    //   // console.log(newArr);
+    //   state.characters = action.payload;
+    // },
 
     setNextPage(state, action) {
       state.queryParams.page += action.payload;
@@ -66,7 +67,7 @@ export const getCurrentPage = (state) => state.manager.queryParams.page;
 export const getPages = (state) => state.manager.pages;
 
 export const getSpecies = (state) => state.manager.species;
-export const getCharacters = (state) => state.manager.characters;
+// export const getCharacters = (state) => state.manager.characters;
 
 
 export const getQueryParams = (state) => state.manager.queryParams;
@@ -80,14 +81,14 @@ export const {
   setName,
   setPages,
   setSpecies,
-  setCharacters,
+  // setCharacters,
 
   setNextPage,
   setInputValue,
   setIsError,
 
   // fetch
-  setCharactersFetch,
+  // setCharactersFetch,
 } = stateManager.actions;
 
 export default stateManager.reducer;

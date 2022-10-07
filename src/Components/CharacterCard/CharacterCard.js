@@ -7,13 +7,14 @@ import {
   // err
   getIsError,
 } from '../../reducer/stateManager';
-import { getFavCharactersLength } from '../../reducer/favouriteSlice';
+import { getFavCharacterId } from '../../reducer/favouriteSlice';
 import { fetchCurrCharacter, getCurrCharacter } from '../../reducer/currCharacterSlice';
 // import { AddToFavButton } from '../CharactersCards/CharactersCards';
 import { useEffect } from 'react';
 
 export default function CharacterCard(props) {
   const currCharacter = useSelector(getCurrCharacter);
+  
   const isError = useSelector(getIsError);
   const dispatch = useDispatch();
 
@@ -24,6 +25,9 @@ export default function CharacterCard(props) {
     dispatch(fetchCurrCharacter(currId));
   }, [dispatch]);
 
+  const favsId = useSelector(getFavCharacterId);
+  console.log('curr', favsId);
+  
   return (
     <>
       <Header />
@@ -48,15 +52,16 @@ export default function CharacterCard(props) {
 }
 
 function CurrCharacterCard(props) {
-  // const favCharacters = useSelector(getFavCharacters);
-  const favCharactersLength = useSelector(getFavCharactersLength);
-  const favCharacters = JSON.parse(localStorage.getItem('FAV_CHARS'));
+  // const favsId = useSelector(getFavCharacterId);
+  // console.log('curr', favsId);
   const dispatch = useDispatch();
-  let inFavourites = false;
 
-  if (favCharacters !== null && favCharacters.find(item => item.id === props.character?.id)) {
-    inFavourites = true;
-  }
+  // const favCharacters = JSON.parse(localStorage.getItem('FAV_CHARS'));
+  let inFavourites = props.character.isFavourite;
+
+  // if (favCharacters !== null && favCharacters.find(item => item.id === props.character?.id)) {
+  //   inFavourites = true;
+  // }
 
   return (
     <div className='character-card'>

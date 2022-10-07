@@ -2,20 +2,24 @@ import './Favourites.css';
 import Header from "../Header/Header";
 import AlertElement from '../Alerts/Alerts';
 import { useDispatch, useSelector } from 'react-redux';
-import { getFavCharactersLength } from '../../reducer/favouriteSlice';
+import { getFavCharacterId } from '../../reducer/favouriteSlice';
 import { CharactersCards } from '../CharactersCards/CharactersCards';
 import { useEffect } from 'react';
 import { initializing } from '../../App';
 
 export default function Favourites(props) {
-  const favCharactersLength = useSelector(getFavCharactersLength);
+  let favCharactersLength = useSelector(getFavCharacterId);
+  favCharactersLength = favCharactersLength.length;
   let favCharacters = JSON.parse(localStorage.getItem('FAV_CHARS'));
 
   if (!favCharacters) {
     favCharacters = [];
+  } else {
+    favCharacters = favCharacters.map(item => {
+      item.isFavourite = true;
+      return item;
+    });
   }
-
-  const dispatch = useDispatch();
 
   return (
     <>
@@ -24,7 +28,7 @@ export default function Favourites(props) {
         <AlertElement />
       </div>
       <div className="container fav">
-        {favCharacters.length > 0
+        {favCharactersLength > 0
           ? <CharactersCards items={favCharacters}/>
           : <div>No cards</div>
         }

@@ -3,15 +3,15 @@ import './App.css';
 import MainPage from './Components/MainPage/MainPage';
 
 import {
-  getCharacters,
+  // getCharacters,
   getCurrentPage,
   // fetch
-  setCharactersFetch,
+  // setCharactersFetch,
 
   // init
-  setInitState,
+  // setInitState,
 } from './reducer/stateManager';
-import { setFavCharactersLength } from './reducer/favouriteSlice';
+import { setCharactersFetch, getCharacters } from './reducer/favouriteSlice';
 
 import { useDispatch, useSelector } from 'react-redux';
 

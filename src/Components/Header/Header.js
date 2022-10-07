@@ -1,12 +1,11 @@
 import './Header.css';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getFavCharactersLength } from '../../reducer/favouriteSlice';
+import { getFavCharacterId } from '../../reducer/favouriteSlice';
 
 function Header(props) {
-  const favCharactersLength = useSelector(getFavCharactersLength);
-  const favCharacters = JSON.parse(localStorage.getItem('FAV_CHARS'));
-  const dispatch = useDispatch();
+  let favCharactersLength = useSelector(getFavCharacterId);
+  favCharactersLength = favCharactersLength.length;
 
   let charactersClassName = 'header__link';
   let favouritesClassName = 'header__link';

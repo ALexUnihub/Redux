@@ -1,11 +1,12 @@
-import { put, takeEvery, call, select } from 'redux-saga/effects';
+import { put, takeEvery, call, select, all } from 'redux-saga/effects';
 import { setCurrCharacter, getCurrCharacterId } from '../reducer/currCharacterSlice';
+import { getFavCharacterId } from '../reducer/favouriteSlice';
 import { setIsError } from '../reducer/stateManager';
 
 function* workGetCurrCharacter() {
   const currId = yield select(getCurrCharacterId);
   const response = yield call(() => fetch(`https://rickandmortyapi.com/api/character/${currId}`));
-  const responseJSON = yield response.json();
+  let responseJSON = yield response.json();
 
   if (responseJSON.error) {
     yield put(setIsError(true));
@@ -14,14 +15,37 @@ function* workGetCurrCharacter() {
     const episode = yield call(() => fetch(responseJSON.episode[0]));
     const episodeJSON = yield episode.json();
     // console.log(episodeJSON.name, responseJSON);
+    const favsId = yield select(getFavCharacterId);
+    let isFavourite = false;
+
+    let idx = favsId.indexOf(responseJSON.id);
+    if (idx > -1) {
+      isFavourite = true;
+    }
+    responseJSON.isFavourite = isFavourite;
+
     yield put(setCurrCharacter({ character: responseJSON, episode: episodeJSON.name }));
   }
+}
+
+function* setIsFavourite() {
+  const favsId = yield select(getFavCharacterId);
+  // saga
 }
 
 function* watchSetCurrCharacter() {
   yield takeEvery('currCharacter/fetchCurrCharacter', workGetCurrCharacter);
 }
 
+function* watchSetIsFavourite() {
+  yield takeEvery('favourites/setFavsId', setIsFavourite);
+}
+
 export default function* currCharacterSaga() {
-  yield call(watchSetCurrCharacter);
+  // yield call(watchSetCurrCharacter);
+  // yield call
+  yield all([
+    watchSetCurrCharacter(),
+    watchSetIsFavourite(),
+  ]);
 }

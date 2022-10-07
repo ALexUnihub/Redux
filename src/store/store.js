@@ -10,7 +10,9 @@ import createSagaMiddleware from 'redux-saga';
 import charactersSaga from "../saga/randmSaga";
 import initSaga from "../saga/initSate";
 import currCharacterSaga from "../saga/currCharacterSaga";
+import localStorageSaga from "../saga/charactersSaga";
 
+const localStorageMiddleware = createSagaMiddleware();
 const sagaMiddleware = createSagaMiddleware();
 const initMiddleware = createSagaMiddleware();
 const currCharMiddleware = createSagaMiddleware();
@@ -25,10 +27,12 @@ export const store = configureStore({
   middleware: [
     sagaMiddleware,
     initMiddleware,
-    currCharMiddleware
+    currCharMiddleware,
+    localStorageMiddleware,
   ],
 });
 
+localStorageMiddleware.run(localStorageSaga);
 currCharMiddleware.run(currCharacterSaga);
 initMiddleware.run(initSaga);
 sagaMiddleware.run(charactersSaga);
