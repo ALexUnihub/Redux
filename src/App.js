@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import MainPage from './Components/MainPage/MainPage';
 
 import { getCurrentPage } from './reducer/stateManager';
-import { setCharactersFetch, getCharacters } from './reducer/favouriteSlice';
+import { setCharactersFetch, getCharacters } from './reducer/charactersSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 function App() {

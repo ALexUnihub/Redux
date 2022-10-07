@@ -3,7 +3,7 @@ import Footer from '../Footer/Footer';
 import FavouriteButton from '../FavouriteButton/FavouriteButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { getIsError, } from '../../reducer/stateManager';
-import { getFavCharacterId } from '../../reducer/favouriteSlice';
+import { getFavCharacterId } from '../../reducer/charactersSlice';
 import { Link } from 'react-router-dom';
 
 function CharactersCards(props) {

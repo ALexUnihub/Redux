@@ -3,7 +3,7 @@ import {
 } from "@reduxjs/toolkit";
 import stateManger from '../reducer/stateManager';
 import alertSlice from "../reducer/alertSlice";
-import favouriteSlice from "../reducer/favouriteSlice";
+import favouriteSlice from "../reducer/charactersSlice";
 import currCharacterSlice from "../reducer/currCharacterSlice";
 
 import createSagaMiddleware from 'redux-saga';

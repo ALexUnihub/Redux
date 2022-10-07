@@ -2,7 +2,7 @@ import './Favourites.css';
 import Header from "../Header/Header";
 import AlertElement from '../Alerts/Alerts';
 import { useSelector } from 'react-redux';
-import { getFavCharacterId } from '../../reducer/favouriteSlice';
+import { getFavCharacterId } from '../../reducer/charactersSlice';
 import { CharactersCards } from '../CharactersCards/CharactersCards';
 
 export default function Favourites(props) {

@@ -1,6 +1,6 @@
 import { put, takeEvery, call, select, all } from 'redux-saga/effects';
 import { setCurrCharacter, setCurrCharIsFavourite, getCurrCharacterId } from '../reducer/currCharacterSlice';
-import { getNewFavChar, getFavCharacterId } from '../reducer/favouriteSlice';
+import { getNewFavChar, getFavCharacterId } from '../reducer/charactersSlice';
 import { setIsError } from '../reducer/stateManager';
 
 function* workGetCurrCharacter() {

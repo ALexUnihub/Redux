@@ -1,5 +1,5 @@
 import { put, takeEvery, call, select } from 'redux-saga/effects';
-import { getNewFavChar } from '../reducer/favouriteSlice';
+import { getNewFavChar } from '../reducer/charactersSlice';
 import { setAlertMessage } from '../reducer/alertSlice';
 
 const delay = (ms) => new Promise(res => setTimeout(res, ms));

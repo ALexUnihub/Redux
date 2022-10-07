@@ -1,5 +1,5 @@
-import { put, takeEvery, call, select } from 'redux-saga/effects';
-import { setFavCharactersLength, setFavsId } from '../reducer/favouriteSlice';
+import { put, call } from 'redux-saga/effects';
+import { setFavsId } from '../reducer/charactersSlice';
 import { setCurrCharacter } from '../reducer/currCharacterSlice';
 
 export function* setFavouritesState() {

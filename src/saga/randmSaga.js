@@ -4,7 +4,7 @@ import {
   setIsError,
   getQueryParams,
 } from '../reducer/stateManager';
-import { setCharacters } from '../reducer/favouriteSlice';
+import { setCharacters } from '../reducer/charactersSlice';
 
 function* workGetCharacters() {
   const params = yield select(getQueryParams);

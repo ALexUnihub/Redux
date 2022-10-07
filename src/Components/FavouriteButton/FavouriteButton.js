@@ -1,4 +1,4 @@
-import { addCharOnLocalStorage } from '../../reducer/favouriteSlice';
+import { addCharOnLocalStorage } from '../../reducer/charactersSlice';
 import { useDispatch } from 'react-redux';
 
 export default function FavouriteButton(props) {

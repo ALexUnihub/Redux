@@ -1,6 +1,6 @@
 import { put, takeEvery, call, select } from 'redux-saga/effects';
 
-import { setCharacterFavourite, setFavsId, getNewFavChar } from '../reducer/favouriteSlice';
+import { setCharacterFavourite, setFavsId, getNewFavChar } from '../reducer/charactersSlice';
 
 function* workSetLocalStorage() {
   let favObj = yield select(getNewFavChar);
