@@ -1,13 +1,13 @@
 import './Navigation.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { 
+import {
+  setCurrentPage,
   setSpecies,
   setName,
   setInputValue,
   getQueryParams,
   getInputValue,
 } from '../../reducer/stateManager';
-import { getAlertMessage } from '../../reducer/alertSlice';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 
@@ -17,26 +17,6 @@ function Navigation(props) {
   const queryState = useSelector(getQueryParams);
   const inputValue = useSelector(getInputValue);
   const dispatch = useDispatch();
-
-  const spieciesSetter = (event) => {
-    let newSpecies = {
-      queryLine: '',
-      obj: {},
-    };
-
-    const links = event.target.closest('div').querySelectorAll('a');
-    for (let link of links) {
-      if (link.classList.contains('active')) {
-      }
-
-      if (link === event.target) {
-        link.classList.add('active');
-        newSpecies.queryLine = link.textContent.toLowerCase();
-      }
-    }
-
-    dispatch(setSpecies(newSpecies.queryLine));
-  };
 
   const findCharacters = (event) => {
     if (event.code !== 'Enter' && event.code !== 'NumpadEnter') {
@@ -56,6 +36,7 @@ function Navigation(props) {
       btnClear.hidden = true;
     }
     
+    dispatch(setCurrentPage(1));
     dispatch(setName(name));
   };
 
@@ -80,7 +61,7 @@ function Navigation(props) {
         <NavLinks
           items={btnNames}
           species={queryState.species}
-          setter={spieciesSetter}
+          dispatch={dispatch}
         />
 
         <div className='nav__search'>
@@ -96,6 +77,7 @@ function Navigation(props) {
             onClick={(event) => {
               const name = inputValue.trim();
 
+              dispatch(setCurrentPage(1));
               dispatch(setName(name));
               event.target.closest('div').querySelector('.clear').hidden = false;
             }}
@@ -106,8 +88,9 @@ function Navigation(props) {
               event.target.hidden = true;
               event.target.closest('div').querySelector('.search').disabled = true;
 
+              dispatch(setCurrentPage(1));
               dispatch(setInputValue(''));
-              dispatch(setName(''));  
+              dispatch(setName(''));
             }}
           >Clear</button>
         </div>
@@ -123,22 +106,37 @@ export default Navigation;
 function NavLinks(props) {
   const items = props.items.map(item => {
     let defaultClassName = 'nav__btn__item';
-    let itemLink = `?species=${item}`;
 
     if (props.species === item.toLowerCase()) {
       defaultClassName += ' active';
     }
 
-    if (item === 'All') {
-      itemLink = ``;
-    }
+    const spieciesSetter = (event) => {
+      let newSpecies = {
+        queryLine: '',
+        obj: {},
+      };
+  
+      const links = event.target.closest('div').querySelectorAll('a');
+      for (let link of links) {
+        if (link.classList.contains('active')) {
+        }
+  
+        if (link === event.target) {
+          link.classList.add('active');
+          newSpecies.queryLine = link.textContent.toLowerCase();
+        }
+      }
+
+      props.dispatch(setCurrentPage(1));
+      props.dispatch(setSpecies(newSpecies.queryLine));
+    };
 
     return (
       <Link
         key={item}
-        to={itemLink}
         className={defaultClassName}
-        onClick={props.setter}
+        onClick={spieciesSetter}
         >{item}
       </Link>
     );

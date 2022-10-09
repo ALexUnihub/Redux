@@ -40,7 +40,6 @@ export const stateManager = createSlice({
       state.pages = 1;
       state.queryParams.page = 1;
     },
- 
   },
 });
 
@@ -54,8 +53,8 @@ export const getIsError = (state) => state.manager.isError;
 export const {
   setCurrentPage,
   setName,
-  setPages,
   setSpecies,
+  setPages,
   setNextPage,
   setInputValue,
   setIsError,
