@@ -1,6 +1,6 @@
-import { put, takeEvery, call, select } from 'redux-saga/effects';
+import { put, takeEvery, call, select, all } from 'redux-saga/effects';
 
-import { setCharacterFavourite, setFavsId, getNewFavChar } from '../reducer/charactersSlice';
+import { setCharacterFavourite, setFavsId, getNewFavChar, setFavCharacters } from '../reducer/charactersSlice';
 
 function* workSetLocalStorage() {
   let favObj = yield select(getNewFavChar);
@@ -32,6 +32,30 @@ function* watchLocalStorage() {
   yield takeEvery('favourites/addCharOnLocalStorage', workSetLocalStorage);
 }
 
+// favs chars
+function* workGetFavs() {
+  let favCharacters = JSON.parse(localStorage.getItem('FAV_CHARS'));
+
+  if (!favCharacters) {
+    favCharacters = [];
+  } else {
+    favCharacters = favCharacters.map(item => {
+      item.isFavourite = true;
+      return item;
+    });
+  }
+
+  yield put(setFavCharacters(favCharacters));
+}
+
+
+function* watchGetFavs() {
+  yield takeEvery('favourites/getFavsFromLocalStorage', workGetFavs);
+}
+
 export default function* localStorageSaga() {
-  yield call(watchLocalStorage);
+  yield all([
+    watchLocalStorage(),
+    watchGetFavs(),
+  ]);
 }

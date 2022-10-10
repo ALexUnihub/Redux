@@ -9,6 +9,8 @@ const initialState = {
     toAdd: false,
     char: {},
   },
+  // fav chars
+  favCharacters: [],
 };
 
 export const favouritesSlice = createSlice({
@@ -56,12 +58,18 @@ export const favouritesSlice = createSlice({
         state.characters[charIdx].isFavourite = false;
       }
     },
+    // fav chars
+    setFavCharacters(state, action) {
+      state.favCharacters = action.payload;
+    },
+    getFavsFromLocalStorage(state, action) {},
   },
 });
 
 export const getFavCharacterId = (state) => state.favourites.favsId;
 export const getCharacters = (state) => state.favourites.characters;
 export const getNewFavChar = (state) => state.favourites.newFavChar;
+// fav chars
 export const getFavCharacters = (state) => state.favourites.favCharacters;
 
 
@@ -73,6 +81,10 @@ export const {
   setCharactersFetch,
   setCharacters,
   setCharacterFavourite,
+
+  // fav chars
+  setFavCharacters,
+  getFavsFromLocalStorage,
 } = favouritesSlice.actions;
 
 export default favouritesSlice.reducer;
