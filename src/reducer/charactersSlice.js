@@ -62,6 +62,7 @@ export const favouritesSlice = createSlice({
 export const getFavCharacterId = (state) => state.favourites.favsId;
 export const getCharacters = (state) => state.favourites.characters;
 export const getNewFavChar = (state) => state.favourites.newFavChar;
+export const getFavCharacters = (state) => state.favourites.favCharacters;
 
 
 export const {

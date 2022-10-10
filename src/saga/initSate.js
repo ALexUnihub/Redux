@@ -1,4 +1,4 @@
-import { put, call } from 'redux-saga/effects';
+import { put, call, all } from 'redux-saga/effects';
 import { setFavsId } from '../reducer/charactersSlice';
 import { setCurrCharacter } from '../reducer/currCharacterSlice';
 import { setCurrentPage, setName, setSpecies, setInputValue } from '../reducer/stateManager';
@@ -52,7 +52,9 @@ export function* setStateFromURL() {
 }
 
 export default function* initSaga() {
-  yield call(fetchFavouritesState);
-  yield call(setFavouritesState);
-  yield call(setStateFromURL);
+  yield all([
+    fetchFavouritesState(),
+    setFavouritesState(),
+    setStateFromURL(),
+  ]);
 }
