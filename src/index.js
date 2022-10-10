@@ -14,35 +14,59 @@ import CharacterCard from './Components/CharacterCard/CharacterCard';
 import Favourites from './Components/Favourites/Favourites';
 import ErrorPage from './ErrorPage/ErrorPage';
 
+// fixed
+import Header from './Components/Header/Header';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import AlertElement from './Components/Alerts/Alerts';
+// 
+
 const container = document.getElementById('root');
 const root = createRoot(container);
 
-const router = createBrowserRouter([
-  {
-    index: true,
-    element: <Navigate to="characters"/>,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "characters",
-    element: <App />,
-  },
-  {
-    path: "Favourites",
-    element: <Favourites />,
-  },
-  {
-    path: 'character/:characterId',
-    element: <CharacterCard />,
-  },
-]);
+// const router = createBrowserRouter([
+//   {
+//     index: true,
+//     element: <Navigate to="characters"/>,
+//     errorElement: <ErrorPage />,
+//   },
+//   {
+//     path: "characters",
+//     element: <App />,
+//   },
+//   {
+//     path: "Favourites",
+//     element: <Favourites />,
+//   },
+//   {
+//     path: 'character/:characterId',
+//     element: <CharacterCard />,
+//   },
+// ]);
 
 root.render(
   <React.StrictMode>
-    {/* <div className='app'> */}
       <Provider store={store}>
-        <RouterProvider router={router} />
+        
+        <BrowserRouter>
+          <Header />
+
+          <div className='app__wraper'>
+            <AlertElement />
+
+            <Routes>
+              <Route
+                index
+                element={<Navigate to="characters" replace/>}
+                errorElement={<ErrorPage />}
+              />
+              <Route path='characters' element={<App />} />
+              <Route path='character/:characterId' element={<CharacterCard />} />
+              <Route path='Favourites' element={<Favourites />} />
+            </Routes>
+          </div>
+        </BrowserRouter>
+        
+        {/* <RouterProvider router={router} /> */}
       </Provider>
-    {/* </div> */}
   </React.StrictMode>
 );

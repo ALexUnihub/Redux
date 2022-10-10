@@ -14,6 +14,8 @@ function App() {
     dispatch(setCharactersFetch(currentPage));
   }, [currentPage]);
 
+  // // console.log('app', currentPage, characters);
+
   return (
     <div>
       {characters === null

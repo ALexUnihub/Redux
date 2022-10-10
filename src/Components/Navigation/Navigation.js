@@ -1,14 +1,15 @@
 import './Navigation.css';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  setCurrentPage,
+  // setCurrentPage,
+  setPage,
   setSpecies,
   setName,
   setInputValue,
   getQueryParams,
   getInputValue,
 } from '../../reducer/stateManager';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { useEffect } from 'react';
 
 function Navigation(props) {
@@ -36,7 +37,7 @@ function Navigation(props) {
       btnClear.hidden = true;
     }
     
-    dispatch(setCurrentPage(1));
+    dispatch(setPage(1));
     dispatch(setName(name));
   };
 
@@ -77,7 +78,7 @@ function Navigation(props) {
             onClick={(event) => {
               const name = inputValue.trim();
 
-              dispatch(setCurrentPage(1));
+              dispatch(setPage(1));
               dispatch(setName(name));
               event.target.closest('div').querySelector('.clear').hidden = false;
             }}
@@ -88,7 +89,7 @@ function Navigation(props) {
               event.target.hidden = true;
               event.target.closest('div').querySelector('.search').disabled = true;
 
-              dispatch(setCurrentPage(1));
+              dispatch(setPage(1));
               dispatch(setInputValue(''));
               dispatch(setName(''));
             }}
@@ -128,17 +129,17 @@ function NavLinks(props) {
         }
       }
 
-      props.dispatch(setCurrentPage(1));
+      props.dispatch(setPage(1));
       props.dispatch(setSpecies(newSpecies.queryLine));
     };
 
     return (
-      <Link
+      <NavLink
         key={item}
         className={defaultClassName}
         onClick={spieciesSetter}
         >{item}
-      </Link>
+      </NavLink>
     );
   });
 

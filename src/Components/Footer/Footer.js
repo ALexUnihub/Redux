@@ -1,16 +1,13 @@
 import './Footer.css';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
-  setNextPage,
+  setPage,
   getPages,
   getQueryParams,
 } from '../../reducer/stateManager';
 import { useSelector, useDispatch } from 'react-redux';
 
 function Footer(props) {
-  const leftBtnName = ' << Prev ';
-  const rightBtnName = ' Next >> ';
-
   const queryParams = useSelector(getQueryParams);
   const currPage = queryParams.page;
   const pages = useSelector(getPages);
@@ -27,23 +24,6 @@ function Footer(props) {
     rightPageClass += ' disabled';
   }
 
-  const pageSetter = (event) => {
-    let coefficient = 0;
-    let isRight = false;
-
-    if (event.target.classList.contains('right-btn')) {
-      isRight = true;
-    }
-
-    if (isRight && currPage < pages) {
-      coefficient = 1;
-    } else if (currPage > 1) {
-      coefficient = -1;
-    }
-
-    dispatch(setNextPage(coefficient));
-  };
-
   return (
     <div className='container footer'>
       
@@ -53,13 +33,13 @@ function Footer(props) {
         <Link to={`/characters/`}
           id='page'
           className={leftPageClass}
-          onClick={pageSetter}
-        >{leftBtnName}</Link>
+          onClick={() => dispatch(setPage(currPage - 1))}
+        >{' << Prev '}</Link>
         <Link to={`/characters/`}
           id='page'
           className={rightPageClass}
-          onClick={pageSetter}
-        >{rightBtnName}</Link>
+          onClick={() => dispatch(setPage(currPage + 1))}
+        >{' Next >> '}</Link>
       </div>
 
     </div>

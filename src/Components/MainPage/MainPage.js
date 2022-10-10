@@ -19,14 +19,9 @@ function MainPage(props) {
   }, [pageParams]);
 
   return (
-    <div className='main__page'>
-      <Header />
-      <div className='application__wrapper'>
-        <AlertElement />
-        <Navigation />
-        <CharactersCards items={props.items} isFooter={true}/>
-      </div>
-     
+    <div className='application__wrapper'>
+      <Navigation />
+      <CharactersCards items={props.items} isFooter={true}/>
     </div>
   );
 }

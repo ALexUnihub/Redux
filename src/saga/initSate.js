@@ -1,7 +1,7 @@
 import { put, call, all } from 'redux-saga/effects';
 import { setFavsId } from '../reducer/charactersSlice';
 import { setCurrCharacter } from '../reducer/currCharacterSlice';
-import { setCurrentPage, setName, setSpecies, setInputValue } from '../reducer/stateManager';
+import { setPage, setName, setSpecies, setInputValue } from '../reducer/stateManager';
 
 export function* setFavouritesState() {
   let arr = localStorage.getItem('FAV_CHARS');
@@ -43,7 +43,7 @@ export function* setStateFromURL() {
   
   if (page) {
     page = parseInt(page);
-    yield put(setCurrentPage(page));
+    yield put(setPage(page));
   }
   
   if (species) {

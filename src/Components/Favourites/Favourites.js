@@ -22,16 +22,10 @@ export default function Favourites(props) {
 
   return (
     <>
-      <Header />
-      <div className='application__wrapper'>
-        <AlertElement />
-      </div>
-      {/* <div className="container__fav"> */}
-        {favCharactersLength > 0
-          ? <CharactersCards items={favCharacters}/>
-          : <div>No cards</div>
-        }
-      {/* </div> */}
+      {favCharactersLength > 0
+        ? <CharactersCards items={favCharacters}/>
+        : <div>No cards</div>
+      }
     </>
   );
 }

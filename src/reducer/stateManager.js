@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   pages: 1,
   isError: false,
-  characters: [],
+  // characters: [],
   inputValue: '',
   queryParams: {
     page: 1,
@@ -16,7 +16,7 @@ export const stateManager = createSlice({
   name: 'manager',
   initialState: initialState,
   reducers: {
-    setCurrentPage(state, action) {
+    setPage(state, action) {
       state.queryParams.page = action.payload;
     },
     setSpecies(state, action) {
@@ -51,7 +51,7 @@ export const getInputValue = (state) => state.manager.inputValue;
 export const getIsError = (state) => state.manager.isError;
 
 export const {
-  setCurrentPage,
+  setPage,
   setName,
   setSpecies,
   setPages,

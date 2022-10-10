@@ -22,10 +22,10 @@ export default function CharacterCard(props) {
   
   return (
     <>
-      <Header />
-      <div className='application__wrapper'>
+      {/* <Header /> */}
+      {/* <div className='application__wrapper'>
         <AlertElement />
-      </div>
+      </div> */}
       <div className='container__card'>
         <div className='character-card-wrapper'>
           {isError

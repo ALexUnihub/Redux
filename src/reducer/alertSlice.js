@@ -3,6 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   alertMessages: [],
   alertId: 0,
+
+  // fix
+  alertMessages: [] ,
 };
 
 export const alertSlice = createSlice({
@@ -21,7 +24,18 @@ export const alertSlice = createSlice({
     },
     setAlertId(state, action) {
       state.alertId = action.payload;
-    }
+    },
+
+    // fix
+    addAlert(state, action) {
+      state.alertMessages.push({
+        id: state.alertId + 1,
+        message: `${action.payload} added to favourites`,
+      });
+    },
+    removeAlert(state, action) {
+      
+    },
   },
 });
 
@@ -31,6 +45,10 @@ export const getAlertId = (state) => state.alerts.alertId;
 export const {
   setAlertMessage,
   setAlertId,
+
+  // fix
+  addAlert,
+  removeAlert,
 } = alertSlice.actions;
 
 export default alertSlice.reducer;
