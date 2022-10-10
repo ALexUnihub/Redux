@@ -19,7 +19,7 @@ function Header(props) {
 
   return (
     <div className='header'>
-      <div className='container header'>
+      <div className='container__header'>
 
         <div className ='header__links'>
           <Link
@@ -34,8 +34,9 @@ function Header(props) {
           </Link>
         </div>
 
-        <div className='header__favorites__num'>
-          <span className='symbol' data-v-62216c96>♡ {favCharactersLength}</span>
+        <div className='favorites__num'>
+          <span className='symbol'>♡</span>
+          {` ${favCharactersLength}`}
         </div>
 
       </div>

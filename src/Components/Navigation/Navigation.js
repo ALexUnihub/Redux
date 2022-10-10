@@ -56,7 +56,7 @@ function Navigation(props) {
   return (
     <div className='navigation'>
 
-      <div className='container navigation'>
+      <div className='container__navigation'>
 
         <NavLinks
           items={btnNames}

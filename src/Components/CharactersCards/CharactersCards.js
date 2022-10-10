@@ -15,7 +15,7 @@ function CharactersCards(props) {
   });
 
   return (
-    <div className='container cards'>
+    <div className='container__cards'>
       <div className='cards__grid'>
         {isError
           ? <div>No cards</div>

@@ -36,9 +36,9 @@ export default MainPage;
 function createURLObj(pageParams) {
   let objURL = {};
 
-  for (let entries of Object.entries(pageParams)) {
-    if (entries[1] && entries[1] !== 'all' && entries[1] !== 1) {
-      objURL[entries[0]] = entries[1];
+  for (let [key, value] of Object.entries(pageParams)) {
+    if (value && value !== 'all' && value !== 1) {
+      objURL[key] = value;
     }
   }
 

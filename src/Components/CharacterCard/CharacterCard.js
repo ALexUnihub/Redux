@@ -26,17 +26,15 @@ export default function CharacterCard(props) {
       <div className='application__wrapper'>
         <AlertElement />
       </div>
-      <div className='container'>
-        <div className='wrapper'>
-          <div className='character-card-wrapper'>
-            {isError
-              ? <div>No character was found</div>
-              : <CurrCharacterCard
-                  character={currCharacter.char}
-                  episode={currCharacter.episode}
-                />
-            }
-          </div>
+      <div className='container__card'>
+        <div className='character-card-wrapper'>
+          {isError
+            ? <div>No character was found</div>
+            : <CurrCharacterCard
+                character={currCharacter.char}
+                episode={currCharacter.episode}
+              />
+          }
         </div>
       </div>
     </>
