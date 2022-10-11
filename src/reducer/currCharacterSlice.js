@@ -13,9 +13,7 @@ export const currCharacterSlise = createSlice({
     setCurrCharacter(state, action) {
       state.char = action.payload;
     },
-    fetchCurrCharacter(state, action) {
-      // state.currCharacterId = action.payload;
-    },
+    fetchCurrCharacter(state, action) {},
     setEpisode(state, action) {
       state.episode = action.payload;
     },

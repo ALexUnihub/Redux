@@ -7,43 +7,32 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 export default function CharacterCard(props) {
-  // const currCharacter = useSelector(getCurrCharacter);
-  // const episode = useSelector(getEpisode);
+  const currCharacter = useSelector(getCurrCharacter);
+  const episode = useSelector(getEpisode);
   
-  // const dispatch = useDispatch();
-  // const { characterId } = useParams();
-
-  console.log('currCharacter');
+  const dispatch = useDispatch();
+  const { characterId } = useParams();
 
   useEffect(() => {
-    console.log('eff');
-    // if (!currCharacter) {
-    //   dispatch(fetchCurrCharacter(characterId));
-    // }
-
+    dispatch(fetchCurrCharacter(characterId));
   }, [])
-
-  // useEffect(() => {
-  //   dispatch(fetchCurrCharacter(characterId));
-  // }, [characterId]);
 
   return (
     <div className='container__card'>
       <div className='character-card-wrapper'>
-        {/* {!currCharacter
+        {!currCharacter
           ? <div>No character was found</div>
           : <CurrCharacterCard
               character={currCharacter}
               episode={episode}
             />
-        } */}
+        }
       </div>
     </div>
   );
 }
 
 function CurrCharacterCard(props) {
-  // let inFavourites = props.character.isFavourite;
   const favChars = useSelector(getFavCharacters);
   let isFavourite = Boolean(favChars[props.character.id]);
 

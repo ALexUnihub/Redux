@@ -7,11 +7,7 @@ function* workSetLocalStorage() {
   localStorage.setItem('FAV_CHARS', JSON.stringify(favChars));
 }
 
-function* watchLocalStorage() {
-  yield takeEvery('favourites/addCharacterToFavourits', workSetLocalStorage);
-  yield takeEvery('favourites/removeCharacterFromFavourits', workSetLocalStorage);
-}
-
-export default function* localStorageSaga() {
-  yield call(watchLocalStorage);
+export default function* watchLocalStorage() {
+  yield takeEvery('characters/addCharacterToFavourits', workSetLocalStorage);
+  yield takeEvery('characters/removeCharacterFromFavourits', workSetLocalStorage);
 }

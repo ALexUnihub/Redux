@@ -7,10 +7,7 @@ function* workGetCurrCharacter(...args) {
 
   yield put(setCurrCharacter(responseJSON));
 }
-function* watchSetCurrCharacter() {
-  yield takeEvery('currCharacter/fetchCurrCharacter', workGetCurrCharacter);
-}
 
-export default function* currCharacterSaga() {
-  yield call(watchSetCurrCharacter);
+export default function* watchSetCurrCharacter() {
+  yield takeEvery('currCharacter/fetchCurrCharacter', workGetCurrCharacter);
 }

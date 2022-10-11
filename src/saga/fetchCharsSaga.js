@@ -1,4 +1,4 @@
-import { put, takeEvery, call, select } from 'redux-saga/effects';
+import { put, takeEvery, call } from 'redux-saga/effects';
 import {
   setPages,
   setIsError,
@@ -31,10 +31,6 @@ function* workGetCharacters(...args) {
   }
 }
 
-function* watchSetCharacters() {
-  yield takeEvery('favourites/setCharactersFetch', workGetCharacters);
-}
-
-export default function* charactersSaga() {
-  yield call(watchSetCharacters);
+export default function* watchSetCharacters() {
+  yield takeEvery('characters/setCharactersFetch', workGetCharacters);
 }

@@ -6,8 +6,8 @@ const initialState = {
   inputValue: '',
 };
 
-export const stateManager = createSlice({
-  name: 'manager',
+export const mainPageSlice = createSlice({
+  name: 'mainPage',
   initialState: initialState,
   reducers: {
     setPages(state, action) {
@@ -23,14 +23,14 @@ export const stateManager = createSlice({
   },
 });
 
-export const getPages = (state) => state.manager.pages;
-export const getInputValue = (state) => state.manager.inputValue;
-export const getIsError = (state) => state.manager.isError;
+export const getPages = (state) => state.mainPage.pages;
+export const getInputValue = (state) => state.mainPage.inputValue;
+export const getIsError = (state) => state.mainPage.isError;
 
 export const {
   setPages,
   setInputValue,
   setIsError,
-} = stateManager.actions;
+} = mainPageSlice.actions;
 
-export default stateManager.reducer;
+export default mainPageSlice.reducer;

@@ -2,21 +2,17 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   characters: [],
-  // fav chars
   favCharacters: JSON.parse(localStorage.getItem('FAV_CHARS')),
 };
 
-export const favouritesSlice = createSlice({
-  name: 'favourites',
+export const charactersSlice = createSlice({
+  name: 'characters',
   initialState: initialState,
   reducers: {
-    // fav chars
     setFavCharacters(state, action) {
       state.favCharacters = action.payload;
     },
-    setCharactersFetch(state, action) {
-      // console.log(action.payload);
-    },
+    setCharactersFetch(state, action) {},
     setCharacters(state, action) {
       state.characters = action.payload;
     },
@@ -32,9 +28,8 @@ export const favouritesSlice = createSlice({
   },
 });
 
-export const getCharacters = (state) => state.favourites.characters;
-// fav chars
-export const getFavCharacters = (state) => state.favourites.favCharacters;
+export const getCharacters = (state) => state.characters.characters;
+export const getFavCharacters = (state) => state.characters.favCharacters;
 
 
 export const {
@@ -42,10 +37,9 @@ export const {
   setCharactersFetch,
   setCharacters,
 
-  // fav chars
   setFavCharacters,
   addCharacterToFavourits,
   removeCharacterFromFavourits,
-} = favouritesSlice.actions;
+} = charactersSlice.actions;
 
-export default favouritesSlice.reducer;
+export default charactersSlice.reducer;
