@@ -10,7 +10,7 @@ const initialState = {
     char: {},
   },
   // fav chars
-  favCharacters: [],
+  favCharacters: JSON.parse(localStorage.getItem('FAV_CHARS')),
 
   // fix
   isLoading: true,
@@ -20,10 +20,10 @@ export const favouritesSlice = createSlice({
   name: 'favourites',
   initialState: initialState,
   reducers: {
-    setFavsId(state, action) {
-      const arrId = action.payload.map(item => item.id);
-      state.favsId = arrId;
-    },
+    // setFavsId(state, action) {
+    //   const arrId = action.payload.map(item => item.id);
+    //   state.favsId = arrId;
+    // },
     // setCharacters(state, action) {
     //   let charsArr = action.payload;
 
@@ -39,39 +39,47 @@ export const favouritesSlice = createSlice({
     //   });
     //   state.characters = charsArr;
     // },
-    addCharOnLocalStorage(state, action) {
-      state.newFavChar = action.payload;
-    },
-    setCharacterFavourite(state, action) {
-      let charIdx = -1;
-      state.characters.find((item, i) => {
-        if (item.id === action.payload.char.id) {
-          charIdx = i;
-          return item;
-        }
-      });
+    // addCharOnLocalStorage(state, action) {
+    //   state.newFavChar = action.payload;
+    // },
+    // setCharacterFavourite(state, action) {
+    //   let charIdx = -1;
+    //   state.characters.find((item, i) => {
+    //     if (item.id === action.payload.char.id) {
+    //       charIdx = i;
+    //       return item;
+    //     }
+    //   });
 
-      // console.log('set', action.payload, charIdx);
+    //   // console.log('set', action.payload, charIdx);
       
-      if (charIdx > -1 && state.characters.length > 0 && action.payload.toAdd) {
-        state.characters[charIdx].isFavourite = true;
-      } else if (charIdx > -1 && state.characters.length > 0){
-        state.characters[charIdx].isFavourite = false;
-      }
-    },
+    //   if (charIdx > -1 && state.characters.length > 0 && action.payload.toAdd) {
+    //     state.characters[charIdx].isFavourite = true;
+    //   } else if (charIdx > -1 && state.characters.length > 0){
+    //     state.characters[charIdx].isFavourite = false;
+    //   }
+    // },
     // fav chars
     setFavCharacters(state, action) {
       state.favCharacters = action.payload;
     },
-    getFavsFromLocalStorage(state, action) {},
 
     // fix
     setCharactersFetch(state, action) {
-      state.isLoading = true;
+      // console.log(action.payload);
     },
     setCharacters(state, action) {
-      state.isLoading = false;
       state.characters = action.payload;
+    },
+    addCharacterToFavourits(state, action) {
+      if (!state.favCharacters) {
+        state.favCharacters = {};
+      }
+      state.favCharacters[action.payload.id] = action.payload;
+      // console.log(state.favCharacters[`${action.payload.id}`]);
+    },
+    removeCharacterFromFavourits(state, action) {
+      delete state.favCharacters[action.payload.id];
     },
   },
 });
@@ -84,17 +92,18 @@ export const getFavCharacters = (state) => state.favourites.favCharacters;
 
 
 export const {
-  setFavsId,
-  addCharOnLocalStorage,
+  // setFavsId,
+  // addCharOnLocalStorage,
 
   // chars
   setCharactersFetch,
   setCharacters,
-  setCharacterFavourite,
+  // setCharacterFavourite,
 
   // fav chars
   setFavCharacters,
-  getFavsFromLocalStorage,
+  addCharacterToFavourits,
+  removeCharacterFromFavourits,
 } = favouritesSlice.actions;
 
 export default favouritesSlice.reducer;

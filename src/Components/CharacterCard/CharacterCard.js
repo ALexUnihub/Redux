@@ -5,6 +5,7 @@ import FavouriteButton from '../FavouriteButton/FavouriteButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { getIsError } from '../../reducer/stateManager';
 import { fetchCurrCharacter, getCurrCharacter } from '../../reducer/currCharacterSlice';
+import { getFavCharacters } from '../../reducer/charactersSlice';
 import { useEffect } from 'react';
 
 export default function CharacterCard(props) {
@@ -21,30 +22,24 @@ export default function CharacterCard(props) {
   }, [dispatch]);
   
   return (
-    <>
-      {/* <Header /> */}
-      {/* <div className='application__wrapper'>
-        <AlertElement />
-      </div> */}
-      <div className='container__card'>
-        <div className='character-card-wrapper'>
-          {isError
-            ? <div>No character was found</div>
-            : <CurrCharacterCard
-                character={currCharacter.char}
-                episode={currCharacter.episode}
-              />
-          }
-        </div>
+    <div className='container__card'>
+      <div className='character-card-wrapper'>
+        {isError
+          ? <div>No character was found</div>
+          : <CurrCharacterCard
+              character={currCharacter.char}
+              episode={currCharacter.episode}
+            />
+        }
       </div>
-    </>
+    </div>
   );
 }
 
 function CurrCharacterCard(props) {
-  const dispatch = useDispatch();
-
-  let inFavourites = props.character.isFavourite;
+  // let inFavourites = props.character.isFavourite;
+  const favChars = useSelector(getFavCharacters);
+  let isFavourite = Boolean(favChars[props.character.id]);
 
   return (
     <div className='character-card'>
@@ -54,8 +49,7 @@ function CurrCharacterCard(props) {
         <p>Last known location: {props.character.location?.name}</p>
         <p>First seen in: {props.episode}</p>
         <FavouriteButton
-          inFavourites={inFavourites}
-          dispatch={dispatch}
+          isFavourite={isFavourite}
           character={props.character}
         />
       </div>

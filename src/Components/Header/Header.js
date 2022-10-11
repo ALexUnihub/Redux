@@ -1,37 +1,30 @@
 import './Header.css';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { getFavCharacterId } from '../../reducer/charactersSlice';
+import { getFavCharacters } from '../../reducer/charactersSlice';
 
 function Header(props) {
-  let favCharactersLength = useSelector(getFavCharacterId);
-  favCharactersLength = favCharactersLength.length;
-
-  let charactersClassName = 'header__link';
-  let favouritesClassName = 'header__link';
-
-  if (window.location.href.includes('characters')) {
-    charactersClassName += ' active';
-  }
-  if (window.location.href.includes('Favourites')) {
-    favouritesClassName += ' active';
-  }
+  let favCharactersLength = Object.values(useSelector(getFavCharacters)).length;
+  // if (!favCharactersLength) {
+  //   favCharactersLength = 0;
+  // }
+  // console.log(favCharactersLength, favCharactersLength?.length);
 
   return (
     <div className='header'>
       <div className='container__header'>
 
         <div className ='header__links'>
-          <Link
+          <NavLink
             to={`/characters`}
-            className={charactersClassName}
+            className='header__link'
             >Characters
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
             to={`/Favourites`}
-            className={favouritesClassName}
+            className='header__link'
             >Favourites
-          </Link>
+          </NavLink>
         </div>
 
         <div className='favorites__num'>

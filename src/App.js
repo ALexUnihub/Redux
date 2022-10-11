@@ -5,14 +5,25 @@ import { getCurrentPage } from './reducer/stateManager';
 import { setCharactersFetch, getCharacters } from './reducer/charactersSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
+// fix
+import { useSearchParams } from "react-router-dom";
+
 function App() {
-  let currentPage = useSelector(getCurrentPage);
+  const [searchParams, setSearchParams] = useSearchParams();
   const characters = useSelector(getCharacters);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setCharactersFetch(currentPage));
-  }, [currentPage]);
+    dispatch(setCharactersFetch({ 
+      page: searchParams.get('page'),
+      species: searchParams.get('species'),
+      name: searchParams.get('name'),
+    }));
+  }, [searchParams.get('page')]);
+
+  // useEffect(() => {
+  //   dispatch(setCharactersFetch(currentPage));
+  // }, [currentPage]);
 
   // // console.log('app', currentPage, characters);
 
@@ -20,7 +31,8 @@ function App() {
     <div>
       {characters === null
         ? <p>Loading...</p>
-        : <MainPage items={characters}/>
+        : <MainPage />
+        // : <MainPage items={characters}/>
       }
     </div>
   );

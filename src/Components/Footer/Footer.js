@@ -1,5 +1,5 @@
 import './Footer.css';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import {
   setPage,
   getPages,
@@ -8,20 +8,13 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 
 function Footer(props) {
-  const queryParams = useSelector(getQueryParams);
-  const currPage = queryParams.page;
+  const [searchParams, setSearchParams] = useSearchParams();
+  let currPage = parseInt(searchParams.get('page'));
+  
   const pages = useSelector(getPages);
-  const dispatch = useDispatch();
 
-  let leftPageClass = 'left-btn';
-  let rightPageClass = 'right-btn';
-
-  if (currPage === 1) {
-    leftPageClass += ' disabled';
-  }
-
-  if (currPage === pages) {
-    rightPageClass += ' disabled';
+  if (!currPage) {
+    currPage = 1;
   }
 
   return (
@@ -30,16 +23,16 @@ function Footer(props) {
       <p>Page {currPage} of {pages}</p>
 
       <div className='footer__nav'>
-        <Link to={`/characters/`}
+        <a
           id='page'
-          className={leftPageClass}
-          onClick={() => dispatch(setPage(currPage - 1))}
-        >{' << Prev '}</Link>
-        <Link to={`/characters/`}
+          className={currPage === 1 ? 'left-btn disabled' : 'left-btn'}
+          onClick={() => setSearchParams({ page: currPage - 1 })}
+        >{' << Prev '}</a>
+        <a
           id='page'
-          className={rightPageClass}
-          onClick={() => dispatch(setPage(currPage + 1))}
-        >{' Next >> '}</Link>
+          className={currPage === pages ? 'left-btn disabled' : 'left-btn'}
+          onClick={() => setSearchParams({ page: currPage + 1 })}
+        >{' Next >> '}</a>
       </div>
 
     </div>

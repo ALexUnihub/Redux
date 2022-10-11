@@ -6,16 +6,21 @@ import {
 } from '../reducer/stateManager';
 import { setCharacters } from '../reducer/charactersSlice';
 
-function* workGetCharacters() {
-  const params = yield select(getQueryParams);
+function* workGetCharacters(...args) {
+  let params = args[0].payload;
 
-  let species = params.species;
-  if (species === 'all') {
-    species = '';
+  if (!params.page) {
+    params.page = 1;
+  }
+  if (!params.species) {
+    params.species = '';
+  }
+  if (!params.name) {
+    params.name = '';
   }
 
   const response = yield call(() => 
-    fetch(`https://rickandmortyapi.com/api/character?page=${params.page}&name=${params.name}&species=${species}`)
+    fetch(`https://rickandmortyapi.com/api/character?page=${params.page}&name=${params.name}&species=${params.species}`)
   );
   const responseJSON = yield response.json();
 

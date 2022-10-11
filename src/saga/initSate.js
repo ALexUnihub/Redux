@@ -1,16 +1,15 @@
 import { put, call, all } from 'redux-saga/effects';
-import { setFavsId } from '../reducer/charactersSlice';
+import { setFavsId, setFavCharacters } from '../reducer/charactersSlice';
 import { setCurrCharacter } from '../reducer/currCharacterSlice';
 import { setPage, setName, setSpecies, setInputValue } from '../reducer/stateManager';
 
 export function* setFavouritesState() {
-  let arr = localStorage.getItem('FAV_CHARS');
-  if (arr !== null) {
-    arr = JSON.parse(arr);
-    yield put(setFavsId(arr));
-  } else {
-    yield put(setFavsId([]));
+  let obj = JSON.parse(localStorage.getItem('FAV_CHARS'));
+
+  if (!obj) {
+    obj = {};
   }
+  yield put(setFavCharacters(obj))
 }
 
 export function* fetchFavouritesState() {

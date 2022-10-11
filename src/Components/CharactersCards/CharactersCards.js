@@ -3,14 +3,21 @@ import Footer from '../Footer/Footer';
 import FavouriteButton from '../FavouriteButton/FavouriteButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { getIsError, } from '../../reducer/stateManager';
-import { getFavCharacterId } from '../../reducer/charactersSlice';
-import { Link } from 'react-router-dom';
+import { getFavCharacterId, getCharacters, getFavCharacters } from '../../reducer/charactersSlice';
+import { Link, useSearchParams } from 'react-router-dom';
 
 function CharactersCards(props) {
   const isError = useSelector(getIsError);
+  // const characters = useSelector(getCharacters);
+  const favouriteCharacters = useSelector(getFavCharacters);
+
   const charactersCards = props.items.map(item => {
     return (
-      <Card item={item} key={item.id}/>
+      <Card
+        item={item}
+        key={item.id}
+        favChars={favouriteCharacters}
+      />
     );
   });
 
@@ -23,8 +30,8 @@ function CharactersCards(props) {
         }
       </div>
       {props.isFooter
-        ? <Footer />
-        : <></>
+        ? <Footer/>
+        : null
       }
     </div>
   );
@@ -33,11 +40,7 @@ function CharactersCards(props) {
 export default CharactersCards;
 
 function Card(props) {
-  let favCharactersLength = useSelector(getFavCharacterId);
-  favCharactersLength = favCharactersLength.length;
-  
-  const favCharacters = JSON.parse(localStorage.getItem('FAV_CHARS'));
-  const dispatch = useDispatch();
+  let isFavourite = Boolean(props.favChars[props.item.id]);
 
   return (
     <Link to={`/character/${props.item.id}`} className='card__link' id='character'>
@@ -47,8 +50,7 @@ function Card(props) {
           <h4>{props.item.name}</h4>
           <p>{props.item.species} - {props.item.status}</p>
           <FavouriteButton 
-            inFavourites={props.item.isFavourite}
-            dispatch={dispatch}
+            isFavourite={isFavourite}
             character={props.item}
           />
         </div>

@@ -12,6 +12,9 @@ import {
 import { Link, NavLink } from 'react-router-dom';
 import { useEffect } from 'react';
 
+// fix
+
+
 function Navigation(props) {
   const btnNames = ['All', 'Human', 'Animal', 'Alien'];
   
@@ -41,18 +44,18 @@ function Navigation(props) {
     dispatch(setName(name));
   };
 
-  useEffect(() => {
-    const btnSearch = document.querySelector('.search');
-    const btnClear = document.querySelector('.clear');
+  // useEffect(() => {
+  //   const btnSearch = document.querySelector('.search');
+  //   const btnClear = document.querySelector('.clear');
     
-    if (inputValue.trim() !== '') {
-      btnSearch.disabled = false;
-      btnClear.hidden = false;
-    } else {
-      btnSearch.disabled = true;
-      btnClear.hidden = true;
-    }
-  })
+  //   if (inputValue.trim() !== '') {
+  //     btnSearch.disabled = false;
+  //     btnClear.hidden = false;
+  //   } else {
+  //     btnSearch.disabled = true;
+  //     btnClear.hidden = true;
+  //   }
+  // })
 
   return (
     <div className='navigation'>
@@ -134,12 +137,12 @@ function NavLinks(props) {
     };
 
     return (
-      <NavLink
+      <Link
         key={item}
         className={defaultClassName}
         onClick={spieciesSetter}
         >{item}
-      </NavLink>
+      </Link>
     );
   });
 
