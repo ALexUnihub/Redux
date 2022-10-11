@@ -5,10 +5,6 @@ import { getFavCharacters } from '../../reducer/charactersSlice';
 
 function Header(props) {
   let favCharactersLength = Object.values(useSelector(getFavCharacters)).length;
-  // if (!favCharactersLength) {
-  //   favCharactersLength = 0;
-  // }
-  // console.log(favCharactersLength, favCharactersLength?.length);
 
   return (
     <div className='header'>

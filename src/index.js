@@ -57,16 +57,17 @@ root.render(
               <Route
                 index
                 element={<Navigate to="characters" replace/>}
-                errorElement={<ErrorPage />}
               />
               <Route path='characters' element={<App />} />
               <Route path='character/:characterId' element={<CharacterCard />} />
               <Route path='Favourites' element={<Favourites />} />
+              <Route path='*' element={<ErrorPage />} />
             </Routes>
           </div>
         </BrowserRouter>
         
-        {/* <RouterProvider router={router} /> */}
+        
       </Provider>
+      {/* <RouterProvider router={router} /> */}
   </React.StrictMode>
 );

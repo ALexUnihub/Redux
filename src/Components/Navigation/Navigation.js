@@ -1,101 +1,66 @@
 import './Navigation.css';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  // setCurrentPage,
-  setPage,
-  setSpecies,
-  setName,
-  setInputValue,
-  getQueryParams,
-  getInputValue,
-} from '../../reducer/stateManager';
-import { Link, NavLink } from 'react-router-dom';
-import { useEffect } from 'react';
-
-// fix
-
+import { setInputValue, getInputValue } from '../../reducer/stateManager';
+import { useSearchParams } from 'react-router-dom';
+import { useRef } from 'react';
 
 function Navigation(props) {
-  const btnNames = ['All', 'Human', 'Animal', 'Alien'];
-  
-  const queryState = useSelector(getQueryParams);
+  const btnNames = useRef([
+    'All',
+    'Human',
+    'Animal',
+    'Alien',
+  ]).current;
+
   const inputValue = useSelector(getInputValue);
   const dispatch = useDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const findCharacters = (event) => {
+  const handleEnterKeyUp = event => {
     if (event.code !== 'Enter' && event.code !== 'NumpadEnter') {
       return;
     }
 
-    let name = event.target.value.trim();
-    if (name === '') {
-      dispatch(setInputValue(name));
-    }
+    findCharacters();
+  }
 
-    const btnClear = event.target.closest('div').querySelector('.clear');
-    
-    if (name !== '') {
-      btnClear.hidden = false;
-    } else {
-      btnClear.hidden = true;
-    }
-    
-    dispatch(setPage(1));
-    dispatch(setName(name));
-  };
+  const findCharacters = event => {
+    searchParams.set('name', inputValue.trim());
+    searchParams.set('page', 1);
+    setSearchParams(searchParams);
+  }
 
-  // useEffect(() => {
-  //   const btnSearch = document.querySelector('.search');
-  //   const btnClear = document.querySelector('.clear');
-    
-  //   if (inputValue.trim() !== '') {
-  //     btnSearch.disabled = false;
-  //     btnClear.hidden = false;
-  //   } else {
-  //     btnSearch.disabled = true;
-  //     btnClear.hidden = true;
-  //   }
-  // })
+  const clear = event => {
+    searchParams.delete('page');
+    searchParams.delete('name');
+    setSearchParams(searchParams);
+    dispatch(setInputValue(''));
+  }
 
   return (
     <div className='navigation'>
 
       <div className='container__navigation'>
 
-        <NavLinks
-          items={btnNames}
-          species={queryState.species}
-          dispatch={dispatch}
-        />
+        <NavLinks items={btnNames} />
 
         <div className='nav__search'>
           <input
             value={inputValue}
             type='text'
             placeholder='Search by name...'
-            onKeyUp={findCharacters}
-            onChange={(event) => dispatch(setInputValue(event.target.value))}
-          ></input>
+            onKeyUp={handleEnterKeyUp}
+            onChange={event => dispatch(setInputValue(event.target.value))}
+          />
           <button
             className='nav__button search'
-            onClick={(event) => {
-              const name = inputValue.trim();
-
-              dispatch(setPage(1));
-              dispatch(setName(name));
-              event.target.closest('div').querySelector('.clear').hidden = false;
-            }}
+            disabled={!inputValue}
+            onClick={findCharacters}
           >Search</button>
           <button
             className='nav__button clear'
-            onClick={(event) => {
-              event.target.hidden = true;
-              event.target.closest('div').querySelector('.search').disabled = true;
-
-              dispatch(setPage(1));
-              dispatch(setInputValue(''));
-              dispatch(setName(''));
-            }}
+            hidden={!inputValue}
+            onClick={clear}
           >Clear</button>
         </div>
 
@@ -108,41 +73,37 @@ function Navigation(props) {
 export default Navigation;
 
 function NavLinks(props) {
+  const [searchParams, setSearchParams] = useSearchParams();
+  let currSpecie = searchParams.get('species');
+
+  if (!currSpecie) {
+    currSpecie = 'All';
+  }
+
+  const setSpecies = event => {
+    if (event.target.textContent === 'All') {
+      searchParams.delete('species');
+    } else {
+      searchParams.set('species', event.target.textContent);
+    }
+    searchParams.delete('page');
+    setSearchParams(searchParams);
+  }
+
   const items = props.items.map(item => {
     let defaultClassName = 'nav__btn__item';
 
-    if (props.species === item.toLowerCase()) {
+    if (currSpecie === item) {
       defaultClassName += ' active';
     }
 
-    const spieciesSetter = (event) => {
-      let newSpecies = {
-        queryLine: '',
-        obj: {},
-      };
-  
-      const links = event.target.closest('div').querySelectorAll('a');
-      for (let link of links) {
-        if (link.classList.contains('active')) {
-        }
-  
-        if (link === event.target) {
-          link.classList.add('active');
-          newSpecies.queryLine = link.textContent.toLowerCase();
-        }
-      }
-
-      props.dispatch(setPage(1));
-      props.dispatch(setSpecies(newSpecies.queryLine));
-    };
-
     return (
-      <Link
+      <a
         key={item}
         className={defaultClassName}
-        onClick={spieciesSetter}
+        onClick={setSpecies}
         >{item}
-      </Link>
+      </a>
     );
   });
 

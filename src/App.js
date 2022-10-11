@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import MainPage from './Components/MainPage/MainPage';
 
-import { getCurrentPage } from './reducer/stateManager';
 import { setCharactersFetch, getCharacters } from './reducer/charactersSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -14,25 +13,18 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setCharactersFetch({ 
+    dispatch(setCharactersFetch({
       page: searchParams.get('page'),
       species: searchParams.get('species'),
       name: searchParams.get('name'),
     }));
-  }, [searchParams.get('page')]);
-
-  // useEffect(() => {
-  //   dispatch(setCharactersFetch(currentPage));
-  // }, [currentPage]);
-
-  // // console.log('app', currentPage, characters);
+  }, [searchParams]);
 
   return (
     <div>
       {characters === null
         ? <p>Loading...</p>
         : <MainPage />
-        // : <MainPage items={characters}/>
       }
     </div>
   );

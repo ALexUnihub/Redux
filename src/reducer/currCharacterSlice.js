@@ -1,11 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  currCharacterId: 0,
-  currChar: {
-    char: {},
-    episode: '',
-  },
+  id: 0,
+  char: null,
+  episode: '',
 }
 
 export const currCharacterSlise = createSlice({
@@ -13,25 +11,23 @@ export const currCharacterSlise = createSlice({
   initialState: initialState,
   reducers: {
     setCurrCharacter(state, action) {
-      state.currChar.char = action.payload.character;
-      state.currChar.episode = action.payload.episode;
+      state.char = action.payload;
     },
     fetchCurrCharacter(state, action) {
-      state.currCharacterId = action.payload;
+      // state.currCharacterId = action.payload;
     },
-    setCurrCharIsFavourite(state, action) {
-      state.currChar.char.isFavourite = action.payload;
+    setEpisode(state, action) {
+      state.episode = action.payload;
     },
   },
 });
 
-export const getCurrCharacterId = (state) => state.currCharacter.currCharacterId;
-export const getCurrCharacter = (state) => state.currCharacter.currChar;
+export const getCurrCharacter = (state) => state.currCharacter.char;
+export const getEpisode = (state) => state.currCharacter.episode;
 
 export const {
   setCurrCharacter,
   fetchCurrCharacter,
-  setCurrCharIsFavourite,
 } = currCharacterSlise.actions;
 
 export default currCharacterSlise.reducer;

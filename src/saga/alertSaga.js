@@ -1,28 +1,49 @@
-import { put, takeEvery, call, select } from 'redux-saga/effects';
+import { put, takeEvery, call, select, delay, all } from 'redux-saga/effects';
 import { getNewFavChar } from '../reducer/charactersSlice';
-import { setAlertMessage } from '../reducer/alertSlice';
+import { addCharAlert, removeCharAlert, removeAlert, getLastAlertId, addAlert } from '../reducer/alertSlice';
 
-const delay = (ms) => new Promise(res => setTimeout(res, ms));
+function* showAddAlert(...args) {
+  yield put(addAlert(`${args[0].payload.name} added to favourites`));
 
-function* workSetAlert() {
-  const charObj = yield select(getNewFavChar);
-  let alertMessage = `${charObj.char.name}`;
-  let messageStatus = ' removed from favourites';
+  const id = yield select(getLastAlertId);
 
-  if (charObj.toAdd) {
-    messageStatus = ' added to favourites';
-  }
-
-  alertMessage += messageStatus;
-  yield put(setAlertMessage({ add: true, message: alertMessage}));
   yield delay(5000);
-  yield put(setAlertMessage({ add: false, message: alertMessage}));
+  yield put(removeAlert(id));
 }
 
-function* watchSetAlert() {
-  yield takeEvery('favourites/addCharOnLocalStorage', workSetAlert);
+function* showRemoveAlert(...args) {
+  yield put(addAlert(`${args[0].payload.name} removed from favourites`));
+
+  const id = yield select(getLastAlertId);
+
+  yield delay(5000);
+  yield put(removeAlert(id));
+}
+
+// function* showAlert(...args) {
+//   if (args[0].payload.inFavourits) {
+//     yield put(addAlert(`${args[0].payload.char.name} removed from favourites`));
+//   } else {
+//     yield put(addAlert(`${args[0].payload.char.name} added to favourites`));
+//   }
+//   const id = yield select(getLastAlertId);
+
+//   yield delay(5000);
+//   yield put(removeAlert(id));
+// }
+
+function* watchShowAddAlert(...args) {
+  yield takeEvery('favourites/addCharacterToFavourits', showAddAlert);
+}
+
+function* watchShowRemoveAlert(...args) {
+  yield takeEvery('favourites/removeCharacterFromFavourits', showRemoveAlert);
 }
 
 export default function* alertsSaga() {
-  yield call(watchSetAlert);
+  // yield call(watchSetAlert);
+  yield all([
+    watchShowAddAlert(),
+    watchShowRemoveAlert(),
+  ]);
 }

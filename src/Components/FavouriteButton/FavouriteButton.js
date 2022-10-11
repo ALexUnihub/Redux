@@ -10,7 +10,7 @@ export default function FavouriteButton(props) {
       onClick={(event) => {
         event.preventDefault();
         
-        if (props.isFavourite) {
+        if (props.isFavourite) {          
           dispatch(removeCharacterFromFavourits(props.character));
         } else {
           dispatch(addCharacterToFavourits(props.character));

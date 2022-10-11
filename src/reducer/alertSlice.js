@@ -1,54 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  alertMessages: [],
-  alertId: 0,
-
-  // fix
-  alertMessages: [] ,
+  lastAlertId: 0,
+  alertMessages: {},
 };
 
 export const alertSlice = createSlice({
   name: 'alerts',
   initialState: initialState,
   reducers: {
-    setAlertMessage(state, action) {
-      if (action.payload.add) {
-        state.alertMessages.push(action.payload.message);
-      } else {
-        const idx = state.alertMessages.indexOf(action.payload.message);
-        if (idx > -1) {
-          state.alertMessages.splice(idx, 1);
-        }
-      } 
-    },
-    setAlertId(state, action) {
-      state.alertId = action.payload;
-    },
-
-    // fix
     addAlert(state, action) {
-      state.alertMessages.push({
-        id: state.alertId + 1,
-        message: `${action.payload} added to favourites`,
-      });
+      state.lastAlertId++;
+      state.alertMessages[state.lastAlertId] = action.payload;
     },
     removeAlert(state, action) {
-      
+      delete state.alertMessages[action.payload];
     },
   },
 });
 
 export const getAlertMessage = (state) => state.alerts.alertMessages;
-export const getAlertId = (state) => state.alerts.alertId;
+export const getLastAlertId = (state) => state.alerts.lastAlertId;
 
 export const {
-  setAlertMessage,
-  setAlertId,
-
-  // fix
-  addAlert,
   removeAlert,
+  addAlert,
 } = alertSlice.actions;
 
 export default alertSlice.reducer;

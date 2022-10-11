@@ -1,36 +1,42 @@
 import './CharacterCard.css';
-import Header from '../Header/Header';
-import AlertElement from '../Alerts/Alerts';
 import FavouriteButton from '../FavouriteButton/FavouriteButton';
 import { useDispatch, useSelector } from 'react-redux';
-import { getIsError } from '../../reducer/stateManager';
-import { fetchCurrCharacter, getCurrCharacter } from '../../reducer/currCharacterSlice';
+import { fetchCurrCharacter, getCurrCharacter, getEpisode } from '../../reducer/currCharacterSlice';
 import { getFavCharacters } from '../../reducer/charactersSlice';
 import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 export default function CharacterCard(props) {
-  const currCharacter = useSelector(getCurrCharacter);
+  // const currCharacter = useSelector(getCurrCharacter);
+  // const episode = useSelector(getEpisode);
   
-  const isError = useSelector(getIsError);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+  // const { characterId } = useParams();
+
+  console.log('currCharacter');
 
   useEffect(() => {
-    let arr = window.location.href.split('/');
-    const currId = parseInt(arr[arr.length - 1]);
-    
-    dispatch(fetchCurrCharacter(currId));
-  }, [dispatch]);
-  
+    console.log('eff');
+    // if (!currCharacter) {
+    //   dispatch(fetchCurrCharacter(characterId));
+    // }
+
+  }, [])
+
+  // useEffect(() => {
+  //   dispatch(fetchCurrCharacter(characterId));
+  // }, [characterId]);
+
   return (
     <div className='container__card'>
       <div className='character-card-wrapper'>
-        {isError
+        {/* {!currCharacter
           ? <div>No character was found</div>
           : <CurrCharacterCard
-              character={currCharacter.char}
-              episode={currCharacter.episode}
+              character={currCharacter}
+              episode={episode}
             />
-        }
+        } */}
       </div>
     </div>
   );

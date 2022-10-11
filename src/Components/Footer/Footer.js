@@ -1,11 +1,7 @@
 import './Footer.css';
-import { Link, useSearchParams } from 'react-router-dom';
-import {
-  setPage,
-  getPages,
-  getQueryParams,
-} from '../../reducer/stateManager';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
+import { getPages } from '../../reducer/stateManager';
+import { useSelector } from 'react-redux';
 
 function Footer(props) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -26,12 +22,18 @@ function Footer(props) {
         <a
           id='page'
           className={currPage === 1 ? 'left-btn disabled' : 'left-btn'}
-          onClick={() => setSearchParams({ page: currPage - 1 })}
+          onClick={() => {
+            searchParams.set('page', currPage - 1);
+            setSearchParams(searchParams);
+          }}
         >{' << Prev '}</a>
         <a
           id='page'
           className={currPage === pages ? 'left-btn disabled' : 'left-btn'}
-          onClick={() => setSearchParams({ page: currPage + 1 })}
+          onClick={() => {
+            searchParams.set('page', currPage + 1);
+            setSearchParams(searchParams);
+          }}
         >{' Next >> '}</a>
       </div>
 

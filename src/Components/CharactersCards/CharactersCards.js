@@ -1,14 +1,13 @@
 import './CharactersCards.css';
 import Footer from '../Footer/Footer';
 import FavouriteButton from '../FavouriteButton/FavouriteButton';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getIsError, } from '../../reducer/stateManager';
-import { getFavCharacterId, getCharacters, getFavCharacters } from '../../reducer/charactersSlice';
-import { Link, useSearchParams } from 'react-router-dom';
+import { getFavCharacters } from '../../reducer/charactersSlice';
+import { Link } from 'react-router-dom';
 
 function CharactersCards(props) {
   const isError = useSelector(getIsError);
-  // const characters = useSelector(getCharacters);
   const favouriteCharacters = useSelector(getFavCharacters);
 
   const charactersCards = props.items.map(item => {

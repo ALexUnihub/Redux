@@ -2,7 +2,6 @@ import { put, takeEvery, call, select } from 'redux-saga/effects';
 import {
   setPages,
   setIsError,
-  getQueryParams,
 } from '../reducer/stateManager';
 import { setCharacters } from '../reducer/charactersSlice';
 
@@ -34,8 +33,6 @@ function* workGetCharacters(...args) {
 
 function* watchSetCharacters() {
   yield takeEvery('favourites/setCharactersFetch', workGetCharacters);
-  yield takeEvery('manager/setSpecies', workGetCharacters);
-  yield takeEvery('manager/setName', workGetCharacters);
 }
 
 export default function* charactersSaga() {
