@@ -5,50 +5,41 @@ import { store } from './store/store';
 import App from './App';
 import './index.css';
 // router && routs
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Navigate,
-} from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import CharacterCard from './Components/CharacterCard/CharacterCard';
 import Favourites from './Components/Favourites/Favourites';
 import ErrorPage from './ErrorPage/ErrorPage';
 
-// fixed
 import Header from './Components/Header/Header';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import AlertElement from './Components/Alerts/Alerts';
-// 
+
+// auth
+import { AuthProvider } from './Auth/auth';
+import Login from './Components/Login/Login';
+import RequireAuth from './Components/RequireAuth/RequireAuth';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
 
-// const router = createBrowserRouter([
-//   {
-//     index: true,
-//     element: <Navigate to="characters"/>,
-//     errorElement: <ErrorPage />,
-//   },
-//   {
-//     path: "characters",
-//     element: <App />,
-//   },
-//   {
-//     path: "Favourites",
-//     element: <Favourites />,
-//   },
-//   {
-//     path: 'character/:characterId',
-//     element: <CharacterCard />,
-//   },
-// ]);
-
 root.render(
   <React.StrictMode>
       <Provider store={store}>
+        <AuthProvider>
         
         <BrowserRouter>
-          <Header />
+
+          <Routes>
+            <Route path='*' element={<Login />} />
+            <Route path='/api/*'
+              element={<RequireAuth>
+                        <Tmp />
+                      </RequireAuth>}
+            />
+          </Routes>
+          
+          
+          {/* <Header />
 
           <div className='app__wraper'>
             <AlertElement />
@@ -63,11 +54,34 @@ root.render(
               <Route path='Favourites' element={<Favourites />} />
               <Route path='*' element={<ErrorPage />} />
             </Routes>
-          </div>
+          </div> */}
+          
         </BrowserRouter>
         
-        
+        </AuthProvider>
       </Provider>
-      {/* <RouterProvider router={router} /> */}
   </React.StrictMode>
 );
+
+function Tmp() {
+  return (
+    <>
+      <Header />
+
+      <div className='app__wraper'>
+        <AlertElement />
+
+        <Routes>
+          <Route
+            index
+            element={<Navigate to="characters" replace/>}
+          />
+          <Route path='characters' element={<App />} />
+          <Route path='character/:characterId' element={<CharacterCard />} />
+          <Route path='Favourites' element={<Favourites />} />
+          <Route path='*' element={<ErrorPage />} />
+        </Routes>
+      </div>
+    </>
+  );
+}
