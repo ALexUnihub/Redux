@@ -33,7 +33,7 @@ root.render(
             <Route path='*' element={<Login />} />
             <Route path='/api/*'
               element={<RequireAuth>
-                        <Tmp />
+                        <Characters />
                       </RequireAuth>}
             />
           </Routes>
@@ -63,7 +63,7 @@ root.render(
   </React.StrictMode>
 );
 
-function Tmp() {
+function Characters() {
   return (
     <>
       <Header />

@@ -1,12 +1,14 @@
+import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { useAuth } from "../../Auth/auth";
+// import { useAuth } from "../../Auth/auth";
+import { getUser } from '../../reducer/authSlice';
 
 
 export default function RequireAuth({ children }) {
-  const auth = useAuth();
-
-  if (!auth.user) {
-    return <Navigate to='/' />
+  const user = useSelector(getUser);
+  console.log(user);
+  if (!user) {
+    return <Navigate to='/' />;
   }
 
   return children;

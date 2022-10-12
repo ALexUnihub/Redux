@@ -4,6 +4,7 @@ import watchSetCharacters from "./fetchCharsSaga";
 import initSaga from "./initSate";
 import watchLocalStorage from "./charactersSaga";
 import watchSetCurrCharacter from "./currCharacterSaga";
+import watchLogin from "./authSaga";
 
 export default function* forkSaga() {
   yield fork(watchShowAddAlert);
@@ -12,4 +13,5 @@ export default function* forkSaga() {
   yield fork(initSaga);
   yield fork(watchLocalStorage);
   yield fork(watchSetCurrCharacter);
+  yield fork(watchLogin);
 }

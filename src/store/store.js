@@ -5,9 +5,10 @@ import mainPageSlice from '../reducer/stateManager';
 import alertSlice from "../reducer/alertSlice";
 import charactersSlice from "../reducer/charactersSlice";
 import currCharacterSlice from "../reducer/currCharacterSlice";
-
 import createSagaMiddleware from 'redux-saga';
 import forkSaga from "../saga/forkSaga";
+// auth
+import authSlice from "../reducer/authSlice";
 
 const SagaMiddleware = createSagaMiddleware();
 
@@ -17,6 +18,7 @@ export const store = configureStore({
     alerts: alertSlice,
     characters: charactersSlice,
     currCharacter: currCharacterSlice,
+    auth: authSlice,
   },
   middleware: [SagaMiddleware],
 });
