@@ -1,6 +1,6 @@
 import './Navigation.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { setInputValue, getInputValue } from '../../reducer/stateManager';
+import { setInputValue, getInputValue } from '../../reducer/mainPageSlice';
 import { useSearchParams } from 'react-router-dom';
 import { useRef } from 'react';
 
@@ -54,12 +54,12 @@ function Navigation(props) {
           />
           <button
             className='nav__button search'
-            disabled={!inputValue}
+            disabled={!inputValue && !searchParams.get('name')}
             onClick={findCharacters}
           >Search</button>
           <button
             className='nav__button clear'
-            hidden={!inputValue}
+            hidden={!inputValue && !searchParams.get('name')}
             onClick={clear}
           >Clear</button>
         </div>

@@ -2,7 +2,7 @@ import { put, takeEvery, call } from 'redux-saga/effects';
 import {
   setPages,
   setIsError,
-} from '../reducer/stateManager';
+} from '../reducer/mainPageSlice';
 import { setCharacters } from '../reducer/charactersSlice';
 
 function* workGetCharacters(...args) {

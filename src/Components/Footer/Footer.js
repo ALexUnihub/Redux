@@ -1,6 +1,6 @@
 import './Footer.css';
 import { useSearchParams } from 'react-router-dom';
-import { getPages } from '../../reducer/stateManager';
+import { getPages } from '../../reducer/mainPageSlice';
 import { useSelector } from 'react-redux';
 
 function Footer(props) {

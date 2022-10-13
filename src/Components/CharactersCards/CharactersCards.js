@@ -2,7 +2,7 @@ import './CharactersCards.css';
 import Footer from '../Footer/Footer';
 import FavouriteButton from '../FavouriteButton/FavouriteButton';
 import { useSelector } from 'react-redux';
-import { getIsError, } from '../../reducer/stateManager';
+import { getIsError, } from '../../reducer/mainPageSlice';
 import { getFavCharacters } from '../../reducer/charactersSlice';
 import { Link } from 'react-router-dom';
 

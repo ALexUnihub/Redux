@@ -1,7 +1,7 @@
 import {
   configureStore,
 } from "@reduxjs/toolkit";
-import mainPageSlice from '../reducer/stateManager';
+import mainPageSlice from '../reducer/mainPageSlice';
 import alertSlice from "../reducer/alertSlice";
 import charactersSlice from "../reducer/charactersSlice";
 import currCharacterSlice from "../reducer/currCharacterSlice";
