@@ -5,7 +5,7 @@ import { store } from './store/store';
 import App from './App';
 import './index.css';
 // router && routs
-import { Navigate } from "react-router-dom";
+import { Navigate, NavLink } from "react-router-dom";
 import CharacterCard from './Components/CharacterCard/CharacterCard';
 import Favourites from './Components/Favourites/Favourites';
 import ErrorPage from './ErrorPage/ErrorPage';
@@ -18,6 +18,7 @@ import AlertElement from './Components/Alerts/Alerts';
 import { AuthProvider } from './Auth/auth';
 import Login from './Components/Login/Login';
 import RequireAuth from './Components/RequireAuth/RequireAuth';
+import NavBar from './Components/NavLinks/NavLinks';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
@@ -28,33 +29,19 @@ root.render(
         <AuthProvider>
         
         <BrowserRouter>
+          <NavBar />
 
           <Routes>
-            <Route path='*' element={<Login />} />
+            <Route path='*' element={<Navigate to='/login' />} />
+            <Route path='/register' element={<Login isRegister={true}/>} />
+            <Route path='/login' element={<Login />} />
+
             <Route path='/api/*'
               element={<RequireAuth>
                         <Characters />
                       </RequireAuth>}
             />
           </Routes>
-          
-          
-          {/* <Header />
-
-          <div className='app__wraper'>
-            <AlertElement />
-
-            <Routes>
-              <Route
-                index
-                element={<Navigate to="characters" replace/>}
-              />
-              <Route path='characters' element={<App />} />
-              <Route path='character/:characterId' element={<CharacterCard />} />
-              <Route path='Favourites' element={<Favourites />} />
-              <Route path='*' element={<ErrorPage />} />
-            </Routes>
-          </div> */}
           
         </BrowserRouter>
         

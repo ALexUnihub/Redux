@@ -9,9 +9,9 @@ export const authSlice = createSlice({
   initialState: initialState,
   reducers: {
     loginRequest(state, action) {},
+    registerRquest(state, action) {},
     loginSucceded(state, action) {
       state.user = action.payload;
-      console.log(state.user);
     },
     loginFailed(state, action) {
       state.user = action.payload;
@@ -26,6 +26,7 @@ export const getUser = (state) => state.auth.user;
 
 export const {
   loginRequest,
+  registerRquest,
   loginSucceded,
   loginFailed,
   logout,

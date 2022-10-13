@@ -6,7 +6,7 @@ import { getUser } from '../../reducer/authSlice';
 
 export default function RequireAuth({ children }) {
   const user = useSelector(getUser);
-  console.log(user);
+  
   if (!user) {
     return <Navigate to='/' />;
   }

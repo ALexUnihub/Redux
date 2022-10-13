@@ -1,22 +1,20 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-// import { useAuth } from "../../Auth/auth";
 // auth saga/redux
 import { loginRequest } from '../../reducer/authSlice';
 import './Login.css';
 
-export default function Login() {
-  // const auth = useAuth();
+export default function Login(props) {
   const [userName, setUserName] = useState('');
   const [userPassword, setUserPassword] = useState('');
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleLogin = () => {
-    // auth.login(user);
     dispatch(loginRequest({ userName, userPassword }));
-    navigate('/api', { replace: true });
+  }
+
+  const handleRegister = () => {
+    console.log('register');
   }
 
   return (
@@ -30,7 +28,9 @@ export default function Login() {
           <p>Password</p>
           <input type='text' onChange={event => setUserPassword(event.target.value)} />
         </div>
-        <button onClick={handleLogin}>Login</button>
+        <button
+          onClick={props.isRegister ? handleRegister : handleLogin}
+        >{props.isRegister ? 'Register' : 'Login'}</button>
       </div>
     </div>
   );

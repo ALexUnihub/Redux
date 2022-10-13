@@ -17,7 +17,6 @@ function* login(...args) {
   );
 
   const responseJSON = yield response.json();
-
   console.log(responseJSON);
 
   yield put(loginSucceded(args[0].payload));

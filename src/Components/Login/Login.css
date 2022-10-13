@@ -3,10 +3,6 @@
   justify-content: center;
 }
 
-.login__wrapper {
-  margin: 150px 0 0;
-}
-
 .login__wrapper > div > input {
   height: 24px;
 }
