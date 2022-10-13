@@ -1,10 +1,7 @@
 import React, { useEffect } from 'react';
 import MainPage from './Components/MainPage/MainPage';
-
 import { setCharactersFetch, getCharacters } from './reducer/charactersSlice';
 import { useDispatch, useSelector } from 'react-redux';
-
-// fix
 import { useSearchParams } from "react-router-dom";
 
 function App() {

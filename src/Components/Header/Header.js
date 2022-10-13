@@ -8,12 +8,11 @@ import { logout } from '../../reducer/authSlice';
 function Header(props) {
   let favCharactersLength = Object.values(useSelector(getFavCharacters)).length;
 
-  // auth
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(logout());
-    navigate('/');
+    navigate('/login');
   }
 
   return (
@@ -33,12 +32,13 @@ function Header(props) {
           </NavLink>
         </div>
 
-        {/* auth */}
-        <button onClick={handleLogout}>Logout</button>
+        <div className='btn__wrapper'>
+          <button className='btn__logout' onClick={handleLogout}>Logout</button>
 
-        <div className='favorites__num'>
-          <span className='symbol'>♡</span>
-          {` ${favCharactersLength}`}
+          <div className='favorites__num'>
+            <span className='symbol'>♡</span>
+            {` ${favCharactersLength}`}
+          </div>
         </div>
 
       </div>

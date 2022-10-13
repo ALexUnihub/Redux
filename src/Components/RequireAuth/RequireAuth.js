@@ -1,15 +1,23 @@
 import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
-// import { useAuth } from "../../Auth/auth";
-import { getUser } from '../../reducer/authSlice';
+import { Navigate, Outlet } from "react-router-dom";
+import { getUser, getIsLogin } from '../../reducer/authSlice';
+import AlertElement from "../Alerts/Alerts";
+import Header from "../Header/Header";
 
+export default function RequireAuth() {
+  const isLogin = useSelector(getIsLogin);
 
-export default function RequireAuth({ children }) {
-  const user = useSelector(getUser);
-  
-  if (!user) {
-    return <Navigate to='/' />;
+  if (!isLogin) {
+    return <Navigate to='/login' />;
   }
 
-  return children;
+  return (
+    <div>
+      <Header />
+      <div className="app__wraper">
+        <AlertElement color={'green'}/>
+      </div>
+      <Outlet />
+    </div>
+  );
 }

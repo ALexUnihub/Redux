@@ -9,7 +9,7 @@ export default function AlertElement(props) {
   return (
     <div className='alert__wrapper'>
       {Object.entries(alertMessages).map(([messageId, message]) =>
-        <div key={messageId} className='alert__item'>
+        <div key={messageId} className='alert__item' style={{backgroundColor: props.color}}>
           {message}
           <button
             className='alert__item__btn'

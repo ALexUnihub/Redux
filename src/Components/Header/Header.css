@@ -24,7 +24,6 @@
   opacity: 0.7;
 
   font-size: 16px;
-  /* font-weight: 500; */
 }
 
 .header__link.active {
@@ -44,7 +43,16 @@
   color: #fff;
 }
 
-
 .favorites__num > span{
   font-size: 20px;
+}
+
+.btn__wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 120px;
+}
+
+.btn__logout {
+  cursor: pointer;
 }

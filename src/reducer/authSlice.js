@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  user: null,
+  isLogin: document.cookie.includes('isLogin'),
 };
 
 export const authSlice = createSlice({
@@ -10,26 +10,22 @@ export const authSlice = createSlice({
   reducers: {
     loginRequest(state, action) {},
     registerRquest(state, action) {},
-    loginSucceded(state, action) {
-      state.user = action.payload;
-    },
-    loginFailed(state, action) {
-      state.user = action.payload;
-    },
-    logout(state, action) {
-      state.user = null;
-    },
+    loginFailed(state, action) {},
+    logout(state, action) {},
+    setIsLogin(state, action) {
+      state.isLogin = action.payload;
+    }
   },
 });
 
-export const getUser = (state) => state.auth.user;
+export const getIsLogin = (state) => state.auth.isLogin;
 
 export const {
   loginRequest,
   registerRquest,
-  loginSucceded,
   loginFailed,
   logout,
+  setIsLogin,
 } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -1,7 +1,8 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 // auth saga/redux
-import { loginRequest } from '../../reducer/authSlice';
+import { loginRequest, registerRquest, getIsLogin } from '../../reducer/authSlice';
 import './Login.css';
 
 export default function Login(props) {
@@ -9,12 +10,21 @@ export default function Login(props) {
   const [userPassword, setUserPassword] = useState('');
   const dispatch = useDispatch();
 
-  const handleLogin = () => {
-    dispatch(loginRequest({ userName, userPassword }));
-  }
+  const isLogin = useSelector(getIsLogin);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (isLogin) {
+      navigate('/characters');
+    }
+  }, [isLogin]);
 
-  const handleRegister = () => {
-    console.log('register');
+
+  const hadnleAuth = () => {
+    if (props.isRegister) {
+      dispatch(registerRquest({ userName, userPassword }));
+    } else {
+      dispatch(loginRequest({ userName, userPassword }));
+    }
   }
 
   return (
@@ -29,7 +39,7 @@ export default function Login(props) {
           <input type='text' onChange={event => setUserPassword(event.target.value)} />
         </div>
         <button
-          onClick={props.isRegister ? handleRegister : handleLogin}
+          onClick={hadnleAuth}
         >{props.isRegister ? 'Register' : 'Login'}</button>
       </div>
     </div>
