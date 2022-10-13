@@ -15,7 +15,7 @@ export default function RequireAuth() {
     <div>
       <Header />
       <div className="app__wraper">
-        <AlertElement color={'green'}/>
+        <AlertElement color='green'/>
       </div>
       <Outlet />
     </div>

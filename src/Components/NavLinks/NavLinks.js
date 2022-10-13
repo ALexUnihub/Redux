@@ -14,13 +14,13 @@ export default function NavBar(props) {
   return (
     <>
     <div className='nav__login'>
-      <NavLink to={'/login'}  style={navLinkStyles}>
+      <NavLink to='/login' style={navLinkStyles}>
         Login
       </NavLink>
-      <NavLink to={'/register'}  style={navLinkStyles}>
+      <NavLink to='/register' style={navLinkStyles}>
         Register
       </NavLink>
-      <AlertElement color={'red'}/>
+      <AlertElement color='red'/>
       
     </div>
     <Outlet />
