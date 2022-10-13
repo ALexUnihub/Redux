@@ -10,7 +10,7 @@ import ErrorPage from './ErrorPage/ErrorPage';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import Login from './Components/Login/Login';
 import RequireAuth from './Components/RequireAuth/RequireAuth';
-import NavBar from './Components/NavLinks/NavLinks';
+import NavBar from './Components/NavBar/NavBar';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
